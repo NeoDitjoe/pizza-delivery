@@ -1,7 +1,7 @@
 import client from "../connectClient";
 import hashInput from "./bcrypt";
 
-export default async function verifyEmail(username, email, password, image,verificationCode, res){
+export default async function signUp(username, email, password, image,verificationCode, res){
 
   const db = client.db('authentication')
 
