@@ -5,6 +5,7 @@ import { experimentalStyled as styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
+import { CircularProgress } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -31,7 +32,7 @@ export default function AuthForm() {
     }
   }
 
-  function signupHandler(e) {
+  async function signupHandler(e) {
     e.preventDefault()
     const formData = new FormData(e.target);
 
@@ -43,6 +44,11 @@ export default function AuthForm() {
     }
 
     console.log(userData)
+
+    fetch('/api/auth/verify', {
+      method:  'POST'
+    })
+
 
   }
 
