@@ -8,6 +8,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { CircularProgress } from '@mui/material';
 import PostMethod from '@/util/postMethod';
 import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from 'next/router';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -22,6 +23,8 @@ export default function AuthForm() {
   const [open, setOpen] = useState(true)
   const [image, setImage] = useState(null)
   const [ signUpLoader, setSignUpLoader ] = useState(false)
+
+  const router = useRouter()
 
   function convertToBase64(e) {
 
@@ -59,7 +62,10 @@ export default function AuthForm() {
       const response = await PostMethod( '/api/auth/signUp', userData)
       if(response.message === 'success'){
         alert('check your email for verification code')
-        await PostMethod('/api/auth/emailer', user)
+        const res = await PostMethod('/api/auth/emailer', user)
+        if(res.message === 'success'){
+          router.push('/verify-email-address')
+        }
         setSignUpLoader(false)
       }
     } catch (error) {
