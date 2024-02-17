@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import { CircularProgress } from '@mui/material';
+import PostMethod from '@/util/postMethod';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -43,12 +44,18 @@ export default function AuthForm() {
       image: image
     }
 
-    console.log(userData)
-
-    fetch('/api/auth/verify', {
+    fetch('/api/auth/emailer', {
       method:  'POST'
     })
 
+    try {
+      const response = await PostMethod( '/api/auth/verifyEmail', userData)
+      if(response.message === 'success'){
+        alert('success')
+      }
+    } catch (error) {
+      alert('failed to create user')
+    }
 
   }
 
@@ -57,11 +64,12 @@ export default function AuthForm() {
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
-      >
+        >
         <form onSubmit={signupHandler} action="#" className={style.form}>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={{ xs: 2, md: 2 }}>
               <Grid xs={12} md={12} s={2} >
+                <h1>Sign Up</h1>
                 <Item>
                   <input type='username' name="username" placeholder="Username" required />
                 </Item>
