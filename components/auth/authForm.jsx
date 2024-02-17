@@ -39,19 +39,23 @@ export default function AuthForm() {
 
     const userData = {
       username: formData.get('username'),
-      email: formData.get('email'),
+      email: formData.get('email').toLocaleLowerCase(),
       password: formData.get('password'),
       image: image
     }
 
-    fetch('/api/auth/emailer', {
-      method:  'POST'
-    })
+    console.log(userData)
+
+    const user = {
+      userEmail: formData.get('email'), 
+      username: formData.get('username').toLocaleLowerCase()
+    }
 
     try {
       const response = await PostMethod( '/api/auth/verifyEmail', userData)
       if(response.message === 'success'){
         alert('success')
+        await PostMethod('/api/auth/emailer', user)
       }
     } catch (error) {
       alert('failed to create user')
