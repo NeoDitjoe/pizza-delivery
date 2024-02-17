@@ -53,7 +53,9 @@ export default function AuthForm() {
         password: formData.get('password'),
       });
 
-      console.log(response)
+      if(response.ok){
+        router.push('/')
+      }
 
     } catch (error) {
       console.log(error)
