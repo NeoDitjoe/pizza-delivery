@@ -21,6 +21,7 @@ export default function AuthForm() {
 
   const [open, setOpen] = useState(true)
   const [image, setImage] = useState(null)
+  const [ signUpLoader, setSignUpLoader ] = useState(false)
 
   function convertToBase64(e) {
 
@@ -54,12 +55,15 @@ export default function AuthForm() {
     }
 
     try {
+      setSignUpLoader(true)
       const response = await PostMethod( '/api/auth/signUp', userData)
       if(response.message === 'success'){
         alert('check your email for verification code')
         await PostMethod('/api/auth/emailer', user)
+        setSignUpLoader(false)
       }
     } catch (error) {
+      setSignUpLoader(false)
       alert(error.message || 'Check your internet connection')
     }
 
@@ -106,7 +110,7 @@ export default function AuthForm() {
                   boxShadow: 'none',
                   textAlign: 'center'
                 }}>
-                  <button className={style.button} type="submit">Sign Up</button>
+                  <button className={style.button} type="submit">{signUpLoader ? <CircularProgress size={'20px'}/>  : 'Sign Up'}</button>
                 </Item>
               </Grid>
             </Grid>
