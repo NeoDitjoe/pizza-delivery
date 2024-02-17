@@ -6,8 +6,8 @@ export default async function hashInput(password) {
   return encrypt
 }
 
-export async function verifyHashed(password, hashedPassword) {
-  const verify = await compare(password, hashedPassword)
+export async function verifyPassword(currentPassword, hashedPassword) {
+  const password = await compare(currentPassword, hashedPassword)
 
-  return verify
+  return password
 }

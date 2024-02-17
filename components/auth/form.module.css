@@ -20,3 +20,9 @@
   margin-top: 24px;
   background-color: rgb(142, 255, 127);
 }
+
+.haveAccount{
+  cursor: pointer;
+  color: rgb(142, 255, 127);
+  text-align: center;
+}
