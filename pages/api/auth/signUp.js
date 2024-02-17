@@ -8,7 +8,6 @@ export default async function handler(req, res) {
 
     try {
       await signUp(username, email, password, image, verificationCode, res )
-      res.status(200).json({ message: 'success' })
     } catch (error) {
       res.status(500).json({ message: error || 'failed attempt!'})
     }
