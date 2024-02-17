@@ -9,6 +9,7 @@ import { CircularProgress } from '@mui/material';
 import PostMethod from '@/util/postMethod';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -22,7 +23,8 @@ export default function AuthForm() {
 
   const [open, setOpen] = useState(true)
   const [image, setImage] = useState(null)
-  const [ signUpLoader, setSignUpLoader ] = useState(false)
+  const [signUpLoader, setSignUpLoader] = useState(false)
+  const [haveAccout, setHaveAccount] = useState(true)
 
   const router = useRouter()
 
@@ -38,6 +40,26 @@ export default function AuthForm() {
     }
   }
 
+  async function signInHandler(e) {
+    e.preventDefault()
+
+    const formData = new formData(e.target)
+
+    try {
+
+      const response = await signIn('credentials', {
+        redirect: false,
+        email: formData.get('email'),
+        password: formData.get('password'),
+      });
+
+      console.log(response)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async function signupHandler(e) {
     e.preventDefault()
     const formData = new FormData(e.target);
@@ -48,22 +70,22 @@ export default function AuthForm() {
       email: formData.get('email').toLocaleLowerCase(),
       password: formData.get('password'),
       image: image,
-      verificationCode : verificationCode
+      verificationCode: verificationCode
     }
 
     const user = {
-      userEmail: formData.get('email'), 
+      userEmail: formData.get('email'),
       username: formData.get('username').toLocaleLowerCase(),
       verificationCode: verificationCode
     }
 
     try {
       setSignUpLoader(true)
-      const response = await PostMethod( '/api/auth/signUp', userData)
-      if(response.message === 'success'){
+      const response = await PostMethod('/api/auth/signUp', userData)
+      if (response.message === 'success') {
         alert('check your email for verification code')
         const res = await PostMethod('/api/auth/emailer', user)
-        if(res.message === 'success'){
+        if (res.message === 'success') {
           router.push('/verify-email-address')
         }
         setSignUpLoader(false)
@@ -80,18 +102,23 @@ export default function AuthForm() {
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
-        >
-        <form onSubmit={signupHandler} action="#" className={style.form}>
+      >
+        <form onSubmit={haveAccout ? signInHandler : signupHandler} action="#" className={style.form}>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={{ xs: 2, md: 2 }}>
-              <Grid xs={12} md={12} s={2} >
-                <h1>Sign Up</h1>
-                <Item>
-                  <input type='username' name="username" placeholder="Username" required />
-                </Item>
-              </Grid>
+              {
+                !haveAccout
+                  ? <Grid xs={12} md={12} s={2} >
+                    {haveAccout ? '': <h1>{ 'Sign Up'}</h1>}
+                    <Item>
+                      <input type='username' name="username" placeholder="Username" required />
+                    </Item>
+                  </Grid>
+                  : ''
+              }
 
               <Grid xs={12} md={12} s={2}>
+              {haveAccout ? <h1>{ 'Sign In'}</h1> : ''}
                 <Item>
                   <input type='email' name="email" placeholder="email" required />
                 </Item>
@@ -103,12 +130,16 @@ export default function AuthForm() {
                 </Item>
               </Grid>
 
-              <Grid xs={8} md={8} s={2}  >
-                <label>Profile Image. Optional</label>
-                <Item>
-                  <input onChange={convertToBase64} type='file' placeholder="Image" />
-                </Item>
-              </Grid>
+              {
+                !haveAccout
+                  ? <Grid xs={8} md={8} s={2}  >
+                    <label>Profile Image. Optional</label>
+                    <Item>
+                      <input onChange={convertToBase64} type='file' placeholder="Image" />
+                    </Item>
+                  </Grid>
+                  : ''
+              }
 
               <Grid xs={3} md={3} s={2}  >
                 <Item style={{
@@ -116,8 +147,25 @@ export default function AuthForm() {
                   boxShadow: 'none',
                   textAlign: 'center'
                 }}>
-                  <button className={style.button} type="submit">{signUpLoader ? <CircularProgress size={'20px'}/>  : 'Sign Up'}</button>
+                  <button
+                    className={style.button}
+                    type="submit">
+                    {
+                      signUpLoader
+                        ? <CircularProgress size={'20px'} />
+                        : haveAccout ? 'Sign In' : 'Sign Up'
+                    }
+                  </button>
                 </Item>
+              </Grid>
+
+              <Grid xs={12} md={12} s={2}>
+                <p
+                  className={style.haveAccount}
+                  onClick={() => setHaveAccount(!haveAccout)
+                  }>
+                  {haveAccout ? "Create account" : "Sign In"}
+                </p>
               </Grid>
             </Grid>
           </Box>
