@@ -1,4 +1,5 @@
 import client from "../connectClient";
+import hashInput from "./bcrypt";
 
 export default async function verifyEmail(username, email, password, image, res){
 
@@ -12,10 +13,13 @@ export default async function verifyEmail(username, email, password, image, res)
     return
   }
 
+  const hashPassword = await hashInput(password)
+  console.log(hashPassword)
+
   await db.collection('verification').insertOne({
     username: username,
     email: email,
-    password: password,
+    password: hashPassword,
     image: image || ''
   })
 }
