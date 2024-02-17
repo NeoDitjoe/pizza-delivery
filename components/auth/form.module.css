@@ -1,0 +1,22 @@
+.form input {
+  width: 90%;
+  height: 5vh;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+}
+
+.form {
+  max-width: 300px;
+}
+
+.button {
+  width: 90px;
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+
+  margin-top: 24px;
+  background-color: rgb(142, 255, 127);
+}
