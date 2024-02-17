@@ -5,8 +5,6 @@ import Grid from '@mui/material/Unstable_Grid2';
 import style from './verify.module.css'
 import { Backdrop } from '@mui/material';
 import PostMethod from '@/util/postMethod';
-import CircularProgress from '@mui/material';
-import { useState } from 'react';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '',
@@ -17,8 +15,6 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function VerifyUserEmail() {
-
-  const [ submitLoader, setsubmitLoader ] = useState(false)
 
   async function verificationHandler(e){
     e.preventDefault()
@@ -31,16 +27,13 @@ export default function VerifyUserEmail() {
     }
 
     try {
-      setsubmitLoader(true)
       const response = await PostMethod('/api/auth/verifyUser', verify)
 
       if(response.message === 'success'){
         alert(response.message)
-        setsubmitLoader(false)
       }
     } catch (error) {
       alert(error.message)
-      setsubmitLoader(false)
     }
   }
 
@@ -69,7 +62,7 @@ export default function VerifyUserEmail() {
 
               <Grid xs={12} md={12} s={2} >
                 <Item style={{ boxShadow: 'none', background: 'transparent' }}>
-                  <button className={style.button}>{ submitLoader ?  <CircularProgress/> :'Submit'}</button>
+                  <button className={style.button}>Submit</button>
                 </Item>
               </Grid>
 
