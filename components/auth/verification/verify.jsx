@@ -7,6 +7,7 @@ import { Backdrop } from '@mui/material';
 import PostMethod from '@/util/postMethod';
 import { CircularProgress } from '@mui/material';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '',
@@ -18,6 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function VerifyUserEmail() {
 
+  const router = useRouter()
   const [ submitLoader, setSubmitLoader ] = useState(false)
 
   async function verificationHandler(e){
@@ -37,6 +39,7 @@ export default function VerifyUserEmail() {
       if(response.message === 'success'){
         alert(response.message)
         setSubmitLoader(false)
+        router.push('/auth')
       }
     } catch (error) {
       alert(error.message)
