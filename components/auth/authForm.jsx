@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import { CircularProgress } from '@mui/material';
 import PostMethod from '@/util/postMethod';
+import { v4 as uuidv4 } from 'uuid';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -36,19 +37,20 @@ export default function AuthForm() {
   async function signupHandler(e) {
     e.preventDefault()
     const formData = new FormData(e.target);
+    const verificationCode = uuidv4().substring(3, 8).toUpperCase()
 
     const userData = {
       username: formData.get('username'),
       email: formData.get('email').toLocaleLowerCase(),
       password: formData.get('password'),
-      image: image
+      image: image,
+      verificationCode : verificationCode
     }
-
-    console.log(userData)
 
     const user = {
       userEmail: formData.get('email'), 
-      username: formData.get('username').toLocaleLowerCase()
+      username: formData.get('username').toLocaleLowerCase(),
+      verificationCode: verificationCode
     }
 
     try {
@@ -59,7 +61,6 @@ export default function AuthForm() {
       }
     } catch (error) {
       alert(error.message || 'Check your internet connection')
-      console.log(error)
     }
 
   }
