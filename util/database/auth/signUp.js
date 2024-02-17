@@ -10,16 +10,24 @@ export default async function signUp(username, email, password, image,verificati
 
   if(checkUserByEmail){
     res.status(417).json({ message: 'user already sign up, please verify email to continue'})
-    return
+  }else{
+
+    const hashPassword = await hashInput(password)
+
+    try {
+      await db.collection('verification').insertOne({
+        username: username,
+        email: email,
+        password: hashPassword,
+        image: image || '',
+        verificationCode: verificationCode
+      })
+  
+      res.status(200).json({ message: 'success'})
+    } catch (error) {
+      res.status(417).json({ message: 'user already sign up, please verify email to continue'})
+    }
+    
   }
 
-  const hashPassword = await hashInput(password)
-
-  await db.collection('verification').insertOne({
-    username: username,
-    email: email,
-    password: hashPassword,
-    image: image || '',
-    verificationCode: verificationCode
-  })
 }
