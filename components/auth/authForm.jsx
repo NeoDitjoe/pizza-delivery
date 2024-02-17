@@ -56,7 +56,7 @@ export default function AuthForm() {
     try {
       const response = await PostMethod( '/api/auth/signUp', userData)
       if(response.message === 'success'){
-        alert('success')
+        alert('check your email for verification code')
         await PostMethod('/api/auth/emailer', user)
       }
     } catch (error) {
