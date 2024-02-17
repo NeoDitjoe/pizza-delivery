@@ -58,7 +58,8 @@ export default function AuthForm() {
         await PostMethod('/api/auth/emailer', user)
       }
     } catch (error) {
-      alert('failed to create user')
+      alert(error.message || 'Check your internet connection')
+      console.log(error)
     }
 
   }
