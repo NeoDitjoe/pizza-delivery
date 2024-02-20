@@ -8,6 +8,11 @@ export default async function signUp(username, email, password, image,verificati
   const checkUserByEmail = await db.collection('verification').findOne({ email: email})
   const checkUser = await db.collection('users').findOne({ email: email})
 
+  if(password.split('').length < 7){
+    res.status(417).json({ message: 'Password should contain more then 7 or more characters'})
+    return
+  }
+
   if(checkUserByEmail){
     res.status(417).json({ message: 'Email already in use, but is not verified'})
     return
@@ -18,9 +23,10 @@ export default async function signUp(username, email, password, image,verificati
   }else{
 
     const hashPassword = await hashInput(password)
+    let response 
 
     try {
-      await db.collection('verification').insertOne({
+      response = await db.collection('verification').insertOne({
         username: username,
         email: email,
         password: hashPassword,
@@ -28,12 +34,14 @@ export default async function signUp(username, email, password, image,verificati
         verificationCode: verificationCode,
         createdAt: new Date(),
       })
-
-      await db.collection('verification').createIndex({ createdAt: 1 }, { expireAfterSeconds: 600 });
   
       res.status(200).json({ message: 'success'})
     } catch (error) {
       res.status(417).json({ message: 'Something went wrong'})
+    }
+
+    if(response.acknowledged){
+      await db.collection('verification').createIndex({ createdAt: 1 }, { expireAfterSeconds: 600 });
     }
     
   }
