@@ -9,7 +9,7 @@ export default async function signUp(username, email, password, image,verificati
   // const checkUserByEmail = await db.collection('users').findOne({ email: email})
 
   if(checkUserByEmail){
-    res.status(417).json({ message: 'user already sign up, please verify email to continue'})
+    res.status(417).json({ message: 'user already signed up, please verify email to continue'})
     return
   }
 
