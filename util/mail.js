@@ -15,7 +15,7 @@ export default async function main(userEmail, username, verificationCode) {
   const info = await transporter.sendMail({
     from: '"Pizza4Real 🍕" no-reply@gmail.com',
     to: userEmail,
-    subject: "Email Verification", 
+    subject: "Email Verification",
     text: "Pizza4Real",
     html: `Hi ${username}, 
 
@@ -25,7 +25,7 @@ export default async function main(userEmail, username, verificationCode) {
       Code: <h3>${verificationCode}</h3> 
       Click <a href='https://pizza4real.vercel.app/auth/verify-email-address'>here</a> To verify your email address
       <h5 style={{ color: red }}>Code expires in 10 minutes, you will have to sign up again in order to receive new code</h5>
-      `, 
+      `,
   });
 
 }
@@ -33,13 +33,12 @@ export async function sendCodeToEmail(email, code) {
   const info = await transporter.sendMail({
     from: '"Pizza4Real 🍕" no-reply@gmail.com',
     to: email,
-    subject: "Reset your password", 
+    subject: "Reset your password",
     text: "Pizza4Real",
     html: `
       Reset password code: <h3>${code}</h3> 
-      `, 
-    });
-    
-  }
-  
- // Click <a href='https://pizza4real.vercel.app/auth/verify-email-address'>here</a> to reset your password
+      Click <a href='https://pizza4real.vercel.app/auth/reset-password/create-new-password'>here</a> to reset your password
+      `,
+  });
+
+}
