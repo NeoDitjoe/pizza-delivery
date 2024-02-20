@@ -50,7 +50,7 @@ export default function ForgotPassword() {
                   </button>
                   <p
                     className={style.login}
-                    onClick={() => router.push('auth')}
+                    onClick={() => router.push('/auth')}
                   >Back to Sign in</p>
                 </Item>
               </Grid>
