@@ -47,6 +47,7 @@ export default function CreateNewPassword() {
       <form className={style.form} action='#' onSubmit={resetPasswordHandler}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={{ xs: 2, md: 2 }}>
+            <h1>New password</h1>
             <Grid xs={12} md={12} s={2}>
               <Item>
                 <input type='text' name='code' placeholder='Enter the 5 character reset code' required />
