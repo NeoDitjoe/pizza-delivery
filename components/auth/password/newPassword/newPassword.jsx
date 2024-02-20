@@ -30,12 +30,19 @@ export default function CreateNewPassword() {
     const password = formData.get('password')
 
     const data = { 
-      verificationCode: code,
       email,
+      code,
       password
     }
 
-    console.log(data)
+    try {
+      const response = await PostMethod('/api/auth/newPassword', data)
+      if(response.message === 'success'){
+        alert('password changed')
+      }
+    } catch (error) {
+      alert(error.message)
+    }
   }
 
 

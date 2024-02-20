@@ -1,4 +1,4 @@
-import sendCode from "@/util/database/resetPassord/sendCode"
+import sendCode from "@/util/database/auth/resetPassord/sendCode"
 import { sendCodeToEmail } from "@/util/mail"
 
 export default async function handler(req, res){
