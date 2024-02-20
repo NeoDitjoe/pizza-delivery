@@ -102,7 +102,7 @@ export default function AuthForm() {
         const res = await PostMethod('/api/auth/emailer', user)
 
         if (res.message === 'success') {
-          router.push('/verify-email-address')
+          router.push('/auth/verify-email-address')
         }
 
         setSubmitLoader(false)
@@ -193,7 +193,7 @@ export default function AuthForm() {
 
                   {haveAccout ? <p
                     className={style.haveAccount}
-                    onClick={() => router.push('/reset-password')}
+                    onClick={() => router.push('/auth/reset-password')}
                   >Forgot password ?</p>
                     : ''
                   }
