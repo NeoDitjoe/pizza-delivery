@@ -35,6 +35,7 @@ export default function ForgotPassword() {
       if(response.message === 'success'){
         alert('successfully sent code')
         setLoadingButton(false)
+        router.push('/auth/reset-password/create-new-password')
       }
     } catch (error) {
       alert('Something went wrong')
@@ -53,6 +54,7 @@ export default function ForgotPassword() {
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={{ xs: 2, md: 2 }}>
               <Grid xs={12} md={12} s={2}>
+                <h1>Forgot password</h1>
                 <Item>
                   <input type='email' name='email' placeholder='enter email address' required />
                 </Item>
