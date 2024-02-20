@@ -6,10 +6,15 @@ export default async function signUp(username, email, password, image,verificati
   const db = client.db('authentication')
 
   const checkUserByEmail = await db.collection('verification').findOne({ email: email})
-  // const checkUserByEmail = await db.collection('users').findOne({ email: email})
+  const checkUser = await db.collection('users').findOne({ email: email})
 
   if(checkUserByEmail){
-    res.status(417).json({ message: 'user already sign up, please verify email to continue'})
+    res.status(417).json({ message: 'Email already in use, but is not verified'})
+    return
+  }
+
+  if(checkUser){
+    res.status(417).json({ message: 'email already in use, Please Sign in'})
   }else{
 
     const hashPassword = await hashInput(password)
