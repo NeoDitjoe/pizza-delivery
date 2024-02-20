@@ -19,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function CreateNewPassword() {
 
-  const { loadingButton, setLoadingButton } = useState(false)
+  const [ loadingButton, setLoadingButton ] = useState(false)
 
   async function resetPasswordHandler(e){
     e.preventDefault()
@@ -36,12 +36,17 @@ export default function CreateNewPassword() {
     }
 
     try {
+
+      setLoadingButton(true)
       const response = await PostMethod('/api/auth/newPassword', data)
+
       if(response.message === 'success'){
         alert('password changed')
+        setLoadingButton(false)
       }
     } catch (error) {
       alert(error.message)
+      setLoadingButton(false)
     }
   }
 
