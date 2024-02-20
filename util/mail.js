@@ -17,7 +17,7 @@ export default async function main(userEmail, username, verificationCode) {
     to: userEmail,
     subject: "Email Verification", 
     text: "Pizza4Real",
-    html: `Hi ${username}, <br/><p>Code:<p> <h3>${verificationCode}</h3> Click <a href='http://localhost:3000/verify-email-address'>here</a> To verify your email address`, 
+    html: `Hi ${username}, <br/><p>Code:<p> <h3>${verificationCode}</h3> Click <a href='https://pizza4real.vercel.app/verify-email-address'>here</a> To verify your email address`, 
   });
 
 }
