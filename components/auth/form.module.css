@@ -26,3 +26,17 @@
   color: rgb(142, 255, 127);
   text-align: center;
 }
+
+.password{
+  display: flex;
+  align-items: center;
+}
+
+.password div{
+  padding: 10px;
+  cursor: pointer;
+}
+
+.form input:active{
+  border: none;
+}
