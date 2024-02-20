@@ -1,4 +1,4 @@
-import client from "../connectClient";
+import client from "../../connectClient"
 
 export default async function sendCode(email, code) {
 
