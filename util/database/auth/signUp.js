@@ -25,8 +25,11 @@ export default async function signUp(username, email, password, image,verificati
         email: email,
         password: hashPassword,
         image: image || '',
-        verificationCode: verificationCode
+        verificationCode: verificationCode,
+        createdAt: new Date(),
       })
+
+      await db.collection('verification').createIndex({ createdAt: 1 }, { expireAfterSeconds: 600 });
   
       res.status(200).json({ message: 'success'})
     } catch (error) {
