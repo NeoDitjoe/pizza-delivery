@@ -183,17 +183,21 @@ export default function AuthForm() {
               </Grid>
 
               <Grid xs={12} md={12} s={2}>
-                <Item style={{ background: 'transparent', boxShadow: 'none' }}>
+                <Item style={{ background: 'transparent', boxShadow: 'none' }} className={style.password}>
                   <p
                     className={style.haveAccount}
                     onClick={() => setHaveAccount(!haveAccout)
                     }>
                     {haveAccout ? "Create account" : "Sign In"}
                   </p>
-                  <p
+
+                  {haveAccout ? <p
                     className={style.haveAccount}
                     onClick={() => router.push('/reset-password')}
                   >Forgot password ?</p>
+                    : ''
+                  }
+                  
                 </Item>
               </Grid>
             </Grid>

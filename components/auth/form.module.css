@@ -30,6 +30,7 @@
 .password{
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .password div{
