@@ -54,11 +54,17 @@ export default function AuthForm() {
       });
 
       if(response.ok){
+        alert('successfully logged in')
         router.push('/')
       }
 
+      if(response.error){
+
+        alert(response.error)
+      }
+
     } catch (error) {
-      console.log(error)
+      alert('Something Went Wrong')
     }
   }
 
