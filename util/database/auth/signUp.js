@@ -29,7 +29,7 @@ export default async function signUp(username, email, password, image,verificati
         createdAt: new Date(),
       })
 
-      // await db.collection('verification').createIndex({ createdAt: 1 }, { expireAfterSeconds: 600 });
+      await db.collection('verification').createIndex({ createdAt: 1 }, { expireAfterSeconds: 600 });
   
       res.status(200).json({ message: 'success'})
     } catch (error) {
