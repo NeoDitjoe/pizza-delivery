@@ -7,18 +7,30 @@ export default function Navbar() {
 
   const { data: session } = useSession()
 
-  console.log(session)
+  const username = session
+    && session
+      .user
+      .email
+      .username
+      .charAt(0)
+      .toUpperCase()
+    + session
+      .user
+      .email
+      .username.slice(1)
 
   return (
     <Fragment>
       {
         !session
-         ? <Link href='/auth'>Sign In</Link>
-         :<button
+          ? <Link href='/auth'>Sign In</Link>
+          : <button
             className={style.signOut}
-           onClick={() => signOut()}
-         >Sign Out</button>
+            onClick={() => signOut()}
+          >Sign Out</button>
       }
+
+      <Link href={'/user-profile'}>{username}</Link>
     </Fragment>
   )
 }

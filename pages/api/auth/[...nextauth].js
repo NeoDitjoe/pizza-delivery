@@ -26,7 +26,7 @@ export default NextAuth({
         if (!isValid) {
           throw new Error('Incorrect Password')
         }
-        return { email: checkUserEmail.email}
+        return { email: checkUserEmail }
       }
     })
   ],
