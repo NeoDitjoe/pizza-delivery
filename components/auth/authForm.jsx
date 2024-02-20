@@ -146,7 +146,7 @@ export default function AuthForm() {
                   <input type={!showPassword ? 'password' : 'text'} name="password" placeholder="Password" required />
                   <div onClick={() => setShowdPassword(!showPassword)} >
                     {!showPassword
-                      ? <RiEyeLine/>
+                      ? <RiEyeLine />
                       : <RiEyeCloseLine />
                     }
                   </div>
@@ -183,12 +183,22 @@ export default function AuthForm() {
               </Grid>
 
               <Grid xs={12} md={12} s={2}>
-                <p
-                  className={style.haveAccount}
-                  onClick={() => setHaveAccount(!haveAccout)
-                  }>
-                  {haveAccout ? "Create account" : "Sign In"}
-                </p>
+                <Item style={{ background: 'transparent', boxShadow: 'none' }} className={style.password}>
+                  <p
+                    className={style.haveAccount}
+                    onClick={() => setHaveAccount(!haveAccout)
+                    }>
+                    {haveAccout ? "Create account" : "Sign In"}
+                  </p>
+
+                  {haveAccout ? <p
+                    className={style.haveAccount}
+                    onClick={() => router.push('/reset-password')}
+                  >Forgot password ?</p>
+                    : ''
+                  }
+                  
+                </Item>
               </Grid>
             </Grid>
           </Box>
