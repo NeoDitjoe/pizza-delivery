@@ -2,12 +2,11 @@ import { experimentalStyled as styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import style from './newPassword.module.css'
 import { Backdrop, CircularProgress } from '@mui/material';
 import { useRouter } from 'next/router';
 import PostMethod from '@/util/postMethod';
-import { v4 as uuidv4 } from 'uuid';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -20,6 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function CreateNewPassword() {
 
   const [ loadingButton, setLoadingButton ] = useState(false)
+  const router = useRouter()
 
   async function resetPasswordHandler(e){
     e.preventDefault()
@@ -43,6 +43,8 @@ export default function CreateNewPassword() {
       if(response.message === 'success'){
         alert('password changed')
         setLoadingButton(false)
+        router.push('/auth')
+        
       }
     } catch (error) {
       alert(error.message)
