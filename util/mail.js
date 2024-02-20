@@ -17,7 +17,15 @@ export default async function main(userEmail, username, verificationCode) {
     to: userEmail,
     subject: "Email Verification", 
     text: "Pizza4Real",
-    html: `Hi ${username}, <br/><p>Code:<p> <h3>${verificationCode}</h3> Click <a href='https://pizza4real.vercel.app/verify-email-address'>here</a> To verify your email address`, 
+    html: `Hi ${username}, 
+
+      You have recently signed up at pizza4real.
+      please verify your email to continue
+      <br/>
+      Code: <h3>${verificationCode}</h3> 
+      Click <a href='https://pizza4real.vercel.app/verify-email-address'>here</a> To verify your email address
+      <h5 style={{ color: red }}>Code expires in 10 minutes, you will have to sign up again in order to receive new code</h5>
+      `, 
   });
 
 }

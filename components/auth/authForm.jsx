@@ -32,6 +32,7 @@ export default function AuthForm() {
 
     var reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
+
     reader.onload = () => {
       setImage(reader.result)
     }
@@ -53,13 +54,12 @@ export default function AuthForm() {
         password: formData.get('password'),
       });
 
-      if(response.ok){
+      if (response.ok) {
         alert('successfully logged in')
         router.push('/')
       }
 
-      if(response.error){
-
+      if (response.error) {
         alert(response.error)
       }
 
@@ -90,12 +90,16 @@ export default function AuthForm() {
     try {
       setSignUpLoader(true)
       const response = await PostMethod('/api/auth/signUp', userData)
+
       if (response.message === 'success') {
-        alert('check your email for verification code')
+        alert('check your email for verification code. Code expires in 10 minutes')
+
         const res = await PostMethod('/api/auth/emailer', user)
+
         if (res.message === 'success') {
           router.push('/verify-email-address')
         }
+
         setSignUpLoader(false)
       }
     } catch (error) {
@@ -117,7 +121,7 @@ export default function AuthForm() {
               {
                 !haveAccout
                   ? <Grid xs={12} md={12} s={2} >
-                    {haveAccout ? '': <h1>{ 'Sign Up'}</h1>}
+                    {haveAccout ? '' : <h1>{'Sign Up'}</h1>}
                     <Item>
                       <input type='username' name="username" placeholder="Username" required />
                     </Item>
@@ -126,7 +130,7 @@ export default function AuthForm() {
               }
 
               <Grid xs={12} md={12} s={2}>
-              {haveAccout ? <h1>{ 'Sign In'}</h1> : ''}
+                {haveAccout ? <h1>{'Sign In'}</h1> : ''}
                 <Item>
                   <input type='email' name="email" placeholder="email" required />
                 </Item>
