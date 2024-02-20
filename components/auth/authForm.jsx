@@ -23,7 +23,7 @@ export default function AuthForm() {
 
   const [open, setOpen] = useState(true)
   const [image, setImage] = useState(null)
-  const [signUpLoader, setSignUpLoader] = useState(false)
+  const [ submitLoader, setSubmitLoader] = useState(false)
   const [haveAccout, setHaveAccount] = useState(true)
 
   const router = useRouter()
@@ -47,7 +47,7 @@ export default function AuthForm() {
     const formData = new FormData(e.target)
 
     try {
-
+      setSubmitLoader(true)
       const response = await signIn('credentials', {
         redirect: false,
         email: formData.get('email'),
@@ -55,16 +55,19 @@ export default function AuthForm() {
       });
 
       if (response.ok) {
+        setSubmitLoader(false)
         alert('successfully logged in')
         router.push('/')
       }
 
       if (response.error) {
         alert(response.error)
+        setSubmitLoader(false)
       }
 
     } catch (error) {
       alert('Something Went Wrong')
+      setSubmitLoader(false)
     }
   }
 
@@ -88,7 +91,7 @@ export default function AuthForm() {
     }
 
     try {
-      setSignUpLoader(true)
+      setSubmitLoader(true)
       const response = await PostMethod('/api/auth/signUp', userData)
 
       if (response.message === 'success') {
@@ -100,10 +103,10 @@ export default function AuthForm() {
           router.push('/verify-email-address')
         }
 
-        setSignUpLoader(false)
+        setSubmitLoader(false)
       }
     } catch (error) {
-      setSignUpLoader(false)
+      setSubmitLoader(false)
       alert(error.message || 'Check your internet connection')
     }
 
@@ -163,7 +166,7 @@ export default function AuthForm() {
                     className={style.button}
                     type="submit">
                     {
-                      signUpLoader
+                      submitLoader
                         ? <CircularProgress size={'20px'} />
                         : haveAccout ? 'Sign In' : 'Sign Up'
                     }
