@@ -10,6 +10,7 @@ import PostMethod from '@/util/postMethod';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
+import { RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -23,8 +24,9 @@ export default function AuthForm() {
 
   const [open, setOpen] = useState(true)
   const [image, setImage] = useState(null)
-  const [ submitLoader, setSubmitLoader] = useState(false)
+  const [submitLoader, setSubmitLoader] = useState(false)
   const [haveAccout, setHaveAccount] = useState(true)
+  const [showPassword, setShowdPassword] = useState(false)
 
   const router = useRouter()
 
@@ -140,8 +142,14 @@ export default function AuthForm() {
               </Grid>
 
               <Grid xs={12} md={12} s={2}  >
-                <Item>
-                  <input type='password' name="password" placeholder="Password" required />
+                <Item className={style.password}>
+                  <input type={!showPassword ? 'password' : 'text'} name="password" placeholder="Password" required />
+                  <div onClick={() => setShowdPassword(!showPassword)} >
+                    {!showPassword
+                      ? <RiEyeLine/>
+                      : <RiEyeCloseLine />
+                    }
+                  </div>
                 </Item>
               </Grid>
 
