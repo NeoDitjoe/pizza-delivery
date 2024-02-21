@@ -6,6 +6,19 @@
   background-size: cover;
   padding: 10px;
   padding-top: 40px;
+
+  animation-name: smoothDown;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+}
+
+@keyframes smoothDown {
+  from{
+    height: 10vh;
+  }
+  to{
+    height: 82vh;
+  }
 }
 
 .navbar a{
