@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import Image from 'next/image';
+import style from './pizzas.module.css'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -11,7 +12,6 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary,
   background: 'white',
-  boxShadow: 'none',
 }));
 
 export default function ShowPizza(props) {
@@ -40,13 +40,13 @@ export default function ShowPizza(props) {
                     {pizza.toppings.join(', ')}
                   </div>
 
-                  <div>
+                  <div className={style.prices}>
                     {
                       pizza.prices.map((pizza, y) => (
-                        <div>
+                        <div >
                           {
                             Object.entries(pizza).map(([key, value]) => (
-                              <div>
+                              <div key={y}>
                                 <h4>{key}</h4>
                                 <h6>R {Number(value).toFixed(2)}</h6>
                               </div>
