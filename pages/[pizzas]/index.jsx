@@ -1,5 +1,5 @@
 import Home from "@/components/home/home";
-import ShowPizza from "@/components/pizza";
+import ShowPizza from "@/components/pizzas/pizza";
 import getPizza from "@/util/database/getPizza/get-pizza";
 
 export default function Pizzas(props){
