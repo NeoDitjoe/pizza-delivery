@@ -43,7 +43,7 @@ export default function ShowPizza(props) {
                   <div>
                     {
                       pizza.prices.map((pizza, y) => (
-                        <td style={{ verticalAlign: 'center' }}>
+                        <div>
                           {
                             Object.entries(pizza).map(([key, value]) => (
                               <div>
@@ -52,7 +52,7 @@ export default function ShowPizza(props) {
                               </div>
                             ))
                           }
-                        </td>
+                        </div>
                       ))
                     }
                   </div>
