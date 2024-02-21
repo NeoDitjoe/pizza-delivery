@@ -1,8 +1,10 @@
-
+import style from './home.module.css'
 
 export default function Home(){
 
   return(
-    'home'
+    <main className={style.main}>
+     
+    </main>
   )
 }
