@@ -1,4 +1,4 @@
-.pizzaBase{
+.pizzaBase {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -12,7 +12,7 @@
   height: 80px;
 }
 
-.pizzaBase a{
+.pizzaBase a {
   color: black;
   text-decoration: none;
 }
@@ -21,14 +21,42 @@
   text-align: center;
 }
 
-.pizzaBase h5{
+.pizzaBase h5 {
   width: 10em;
 }
 
-
-@media only screen and (max-width: 768px){
-  .pizzaBase{
+@media only screen and (max-width: 768px) {
+  .pizzaBase {
     justify-content: flex-start;
     gap: 7px;
   }
 }
+
+@media only screen and (min-width: 1089px) {
+  .children {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+
+@media only screen and (min-width: 1421px) {
+  .children {
+    padding-left: 13%;
+    padding-right: 13%;
+  }
+}
+
+@media only screen and (min-width: 1452px) {
+  .children {
+    padding-left: 24%;
+    padding-right: 24%;
+  }
+}
+
+@media only screen and (min-width: 2057px) {
+  .children {
+    padding-left: 30%;
+    padding-right: 30%;
+  }
+}
+

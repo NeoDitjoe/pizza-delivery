@@ -7,10 +7,10 @@ import Image from 'next/image';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
-  padding: theme.spacing(1),
+  padding: theme.spacing(0),
   textAlign: 'center',
   color: theme.palette.text.secondary,
-  background: 'transparent',
+  background: 'white',
   boxShadow: 'none',
 }));
 
@@ -21,12 +21,12 @@ export default function ShowPizza(props) {
     <div>
       <Box sx={{ flexGrow: 2 }}>
         <Grid
-          container spacing={{ xs: 2, md: 2 }}
+          container spacing={{ xs: 1, md: 0 }}
           columns={{ xs: 12, sm: 12, md: 12 }}
         >
           {
             data && data.map((pizza) => (
-              <Grid xs={6} sm={12} md={4}>
+              <Grid xs={12} sm={4} md={4}>
                 <Item>
                   <Image
                     src={pizza.image}

@@ -27,7 +27,7 @@ export default function Home({children}){
         }
       </div>
       
-        <div>
+        <div className={style.children}>
           {children}
         </div>
     </main>
