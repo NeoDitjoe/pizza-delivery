@@ -188,7 +188,7 @@ export default function AuthForm() {
                     className={style.haveAccount}
                     onClick={() => setHaveAccount(!haveAccout)
                     }>
-                    {haveAccout ? "Create account" : "Sign In"}
+                    {haveAccout ? "Create account" : "Have an account ?"}
                   </p>
 
                   {haveAccout ? <p
