@@ -10,9 +10,9 @@ export default function Home({children}){
       <h2>Choose Your Pizza Base</h2>
       <div className={style.pizzaBase}>
         {
-          pizzaBase.map((item) => {
+          pizzaBase.map((item, index) => {
             return(
-              <Link href={item.link}>
+              <Link href={item.link} key={index}>
                 <Image 
                   src={item.image}
                   width={200}
