@@ -13,7 +13,6 @@ export default function Navbar() {
 
   const isHomePage = router.asPath === '/'
 
-
   const username = session
     && session
       .user

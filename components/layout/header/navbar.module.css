@@ -7,13 +7,19 @@
   background-position-y: -150px;
   padding: 10px;
   padding-top: 40px;
+
+  animation-name: smoothDown;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
 }
 
-.navbar a{
-  text-decoration: none;
-  color: white;
-  font-weight: 600;
-  font-size: larger;
+@keyframes smoothDown {
+  from{
+    height: 10vh;
+  }
+  to{
+    height: 92vh;
+  }
 }
 
 .backgroundB {
@@ -25,6 +31,25 @@
   background-position-y: -150px;
   padding: 10px;
   padding-top: 40px;
+  
+  animation-name: smoothUp;
+  animation-duration: 600ms;
+  animation-iteration-count: 1;
+}
+
+/* @keyframes smoothUp {
+  from{
+    height: 92vh;
+  }
+  to{
+    height: 10vh;
+  }
+} */
+.navbar a{
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  font-size: larger;
 }
 
 .navbar{
