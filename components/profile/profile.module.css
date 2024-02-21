@@ -1,0 +1,15 @@
+.signOut {
+  width: 90px;
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+
+  margin-top: 24px;
+  background-color: rgb(142, 255, 127);
+
+}
+
+.main{
+  padding: 15px;
+}
