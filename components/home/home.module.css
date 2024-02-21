@@ -1,17 +1,15 @@
-.pizzaBase {
+.pizzaBase{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
+  overflow-x: scroll;
+  gap: 70px;
 }
 
 .img {
   width: 80px;
   height: 80px;
-}
-
-
-.pizzaBase h5 {
-  width: 120px;
 }
 
 .pizzaBase a{
@@ -21,4 +19,16 @@
 
 .main h2 {
   text-align: center;
+}
+
+.pizzaBase h5{
+  width: 10em;
+}
+
+
+@media only screen and (max-width: 768px){
+  .pizzaBase{
+    justify-content: flex-start;
+    gap: 7px;
+  }
 }
