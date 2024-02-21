@@ -3,8 +3,6 @@ import Link from "next/link";
 import style from './navbar.module.css'
 import { useRouter } from "next/router";
 import { Fragment } from "react";
-import pizzaBase from "@/util/pizza-base";
-import Image from "next/image";
 
 export default function Navbar() {
 
