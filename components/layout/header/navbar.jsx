@@ -1,11 +1,15 @@
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { Fragment } from "react";
 import style from './navbar.module.css'
+import { useRouter } from "next/router";
 
 export default function Navbar() {
 
   const { data: session } = useSession()
+  const router = useRouter()
+
+  const isHomePage = router.asPath === '/'
+
 
   const username = session
     && session
@@ -20,17 +24,15 @@ export default function Navbar() {
       .username.slice(1)
 
   return (
-    <Fragment>
-      {
-        !session
-          ? <Link href='/auth'>Sign In</Link>
-          : <button
-            className={style.signOut}
-            onClick={() => signOut()}
-          >Sign Out</button>
-      }
+    <div className={isHomePage ? style.background : style.backgroundB }>
 
-      <Link href={'/user-profile'}>{username}</Link>
-    </Fragment>
+      <navbar className={style.navbar}>
+        {!session
+          ? <Link href='/auth'>Sign In</Link>
+          : <Link href={'/'}>Home</Link>
+        }
+        <Link href={'/user-profile'}>{username}</Link>
+      </navbar>
+    </div>
   )
 }
