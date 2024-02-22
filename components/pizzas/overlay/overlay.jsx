@@ -3,15 +3,25 @@ import style from './overlay.module.css'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { cheeseType, pizzaSauces, veggies } from '@/util/pizzaOptions'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Select from 'react-select';
+import { useSession } from 'next-auth/react'
 
 export default function Overlay() {
+
+  const { data: session } = useSession()
+  const router = useRouter()
 
   const { setOpenOverlay } = stateContext()
   const [selectedSauce, setSelectSauce] = useState('')
   const [selectedCheese, setSelectCheee] = useState('')
-  const router = useRouter()
+
+  async function addToCartHandler(){
+    if(!session){
+      alert('please login to add to cart')
+      return
+    }
+  }
 
   return (
     <div className={style.backdrop}>
@@ -31,7 +41,7 @@ export default function Overlay() {
       />
 
       <Select
-        // defaultValue={[colourOptions[2], colourOptions[3]]}
+        defaultValue={[veggies[1], veggies[3]]}
         isMulti
         name="colors"
         options={veggies}
@@ -74,8 +84,10 @@ export default function Overlay() {
 
       <br />
 
-      <button className={style.addToCart}>
-        Cost: R {router.query.size && Number(router.query.size.split('-')[1]).toFixed(2)}
+      <button 
+        onClick={addToCartHandler}
+        className={style.addToCart}>
+        Add To Cart
       </button>
     </div>
   )
