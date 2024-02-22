@@ -28,8 +28,7 @@ export default function Overlay() {
       <p>Size: {router.query.size && router.query.size.split('-')[0]}</p>
 
       <button className={style.addToCart}>
-        Add to cart
-        Total cost: R {router.query.size && Number(router.query.size.split('-')[1]).toFixed(2)}
+        Cost: R {router.query.size && Number(router.query.size.split('-')[1]).toFixed(2)}
       </button>
 
       <div>

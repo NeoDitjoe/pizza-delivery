@@ -1,4 +1,4 @@
-import pizzaBase from "@/util/pizza-base";
+import pizzaBase from "@/util/pizzaOptions";
 import Image from "next/image";
 import Link from "next/link";
 import style from './home.module.css'
