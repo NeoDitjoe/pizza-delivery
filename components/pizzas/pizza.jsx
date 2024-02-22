@@ -7,11 +7,13 @@ import style from './pizzas.module.css'
 import { Backdrop } from '@mui/material';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import stateContext from '@/util/context';
+import Overlay from './overlay/overlay';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
-  padding: theme.spacing(0),
+  padding: theme.spacing(1),
   textAlign: 'center',
   color: theme.palette.text.secondary,
   background: 'white',
@@ -20,7 +22,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function ShowPizza(props) {
 
   const { data } = props
-  const [openOverlay, setOpenOverlay] = useState(false)
+  const { openOverlay, setOpenOverlay } = stateContext()
 
   const router = useRouter()
 
@@ -64,7 +66,7 @@ export default function ShowPizza(props) {
                                 }}
                               >
                                 <h4>{key}</h4>
-                                <h6>R {Number(value).toFixed(2)}</h6>
+                                <h5>R {Number(value).toFixed(2)}</h5>
                               </div>
                             ))
                           }
@@ -81,32 +83,10 @@ export default function ShowPizza(props) {
 
 
       {openOverlay && <Backdrop
-        sx={{ color: '#black', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: '#black', zIndex: (theme) => theme.zIndex.drawer + 1, overflow: 'scroll', display: 'flex', justifyContent:'space-around' }}
         open={openOverlay}
       >
-        <div className={style.backdrop}>
-          <p className={style.close} onClick={() => setOpenOverlay(false)}>close</p>
-          <Image
-            src={router.query.image}
-            alt={router.query.name}
-            width={300}
-            height={300}
-          />
-
-          <h3>{router.query.name}</h3>
-          <p>{router.query.toppings}</p>
-          <p>Size: {router.query.size && router.query.size.split('-')[0]}</p>
-
-          <button className={style.addToCart}>
-            Add to cart
-            Total cost: R {router.query.size && Number(router.query.size.split('-')[1]).toFixed(2)}
-          </button>
-
-          <div>
-            
-          </div>
-
-        </div>
+        <Overlay/>
       </Backdrop>}
     </div>
   )

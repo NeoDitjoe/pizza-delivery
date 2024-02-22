@@ -33,3 +33,5 @@ const pizzaBase = [
 ]
 
 export default pizzaBase
+
+export const pizzaSauces = ['Pesto Sauce', 'BBQ Sauce', 'Alfredo Sauce', 'Spicy Red Sauce', 'Garlec & Herb Sauce'  ]
