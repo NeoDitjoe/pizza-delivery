@@ -38,10 +38,6 @@
   cursor: pointer;
 }
 
-.sauces p:hover{
-  background-color: aliceblue;
-}
-
 .selectedSauce{
   background-color: rgb(224, 200, 168);
 }
