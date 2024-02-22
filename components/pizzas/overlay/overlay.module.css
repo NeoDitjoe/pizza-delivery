@@ -1,0 +1,23 @@
+.backdrop {
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.backdrop h3{
+  color: burlywood;
+}
+
+.addToCart{
+  background-color: burlywood;
+  text-align: center;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+ cursor: pointer;
+}
+
+.close{
+  cursor: pointer;
+}
