@@ -34,4 +34,22 @@ const pizzaBase = [
 
 export default pizzaBase
 
-export const pizzaSauces = ['Pesto Sauce', 'BBQ Sauce', 'Alfredo Sauce', 'Spicy Red Sauce', 'Garlec & Herb Sauce'  ]
+export const pizzaSauces = ['Pesto', 'BBQ', 'Alfredo', 'Spicy Red', 'Garlec & Herb'  ]
+
+export const cheeseType = ['Cheddar', 'Mozzarella'/* , 'Cream Cheese', 'Montery Jack' */]
+
+export const veggies = [
+  { value: 'tomato', label: 'Tomato' },
+  { value: 'onion', label: 'Onion' },
+  { value: 'pepperoni', label: 'Pepperoni' },
+  { value: 'mushroom', label: 'Mushroom' },
+  { value: 'green pepper', label: 'Green Pepper' },
+  { value: 'black olive', label: 'Black Olive' },
+  { value: 'pineapple', label: 'Pineapple' },
+  { value: 'jalapeno', label: 'Jalapeno' },
+  { value: 'spinach', label: 'Spinach' },
+  { value: 'artichoke', label: 'Artichoke' },
+  { value: 'red onion', label: 'Red Onion' },
+  { value: 'banana pepper', label: 'Banana Pepper' },
+  { value: 'broccoli', label: 'Broccoli' },
+];

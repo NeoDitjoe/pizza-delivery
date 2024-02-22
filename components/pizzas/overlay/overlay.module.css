@@ -36,18 +36,24 @@
   border: 1px solid burlywood;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: -0.5em;
 }
 
-.sauces p:hover{
-  background-color: aliceblue;
-}
-
-.selectedSauce{
+.selected{
   background-color: rgb(224, 200, 168);
 }
 
-.selectedSauce:hover{
+.selected:hover{
   background-color: rgb(224, 200, 168);
+}
+
+.option {
+  margin-bottom: -0.5em;
+}
+
+.closeSide{
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
 }
 
 @media only screen and (max-width: 713px){
