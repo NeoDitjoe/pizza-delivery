@@ -13,7 +13,7 @@ import Overlay from './overlay/overlay';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
-  padding: theme.spacing(0),
+  padding: theme.spacing(1),
   textAlign: 'center',
   color: theme.palette.text.secondary,
   background: 'white',
@@ -66,7 +66,7 @@ export default function ShowPizza(props) {
                                 }}
                               >
                                 <h4>{key}</h4>
-                                <h6>R {Number(value).toFixed(2)}</h6>
+                                <h5>R {Number(value).toFixed(2)}</h5>
                               </div>
                             ))
                           }
@@ -83,7 +83,7 @@ export default function ShowPizza(props) {
 
 
       {openOverlay && <Backdrop
-        sx={{ color: '#black', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: '#black', zIndex: (theme) => theme.zIndex.drawer + 1, overflow: 'scroll', display: 'flex', justifyContent:'space-around' }}
         open={openOverlay}
       >
         <Overlay/>

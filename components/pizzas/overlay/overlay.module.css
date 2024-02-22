@@ -3,6 +3,8 @@
   background-color: white;
   border-radius: 5px;
   text-align: center;
+
+  /* overflow-y: scroll; */
 }
 
 .backdrop h3{
@@ -20,4 +22,54 @@
 
 .close{
   cursor: pointer;
+  text-align: end;
+}
+
+.sauces{
+  display: flex;
+  flex-direction: wrap;
+  gap: 5px;
+}
+
+.sauces p {
+  padding: 10px;
+  border: 1px solid burlywood;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.sauces p:hover{
+  background-color: aliceblue;
+}
+
+.selectedSauce{
+  background-color: rgb(224, 200, 168);
+}
+
+.selectedSauce:hover{
+  background-color: rgb(224, 200, 168);
+}
+
+@media only screen and (max-width: 713px){
+  .sauces{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .img{
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media only screen and (max-width: 426px){
+  .sauces{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .img{
+    width: 170px;
+    height: 170px;
+  }
 }
