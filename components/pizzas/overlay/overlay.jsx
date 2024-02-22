@@ -15,10 +15,7 @@ export default function Overlay() {
 
   return (
     <div className={style.backdrop}>
-      <br />
-      <br />
-      <br />
-      <br /><br /><br />
+
       <p className={style.close} onClick={() => {
         setOpenOverlay(false)
         router.push(router.query.pizzas)

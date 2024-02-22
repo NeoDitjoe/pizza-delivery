@@ -83,10 +83,12 @@ export default function ShowPizza(props) {
 
 
       {openOverlay && <Backdrop
-        sx={{ color: '#black', zIndex: (theme) => theme.zIndex.drawer + 1, overflow: 'scroll', display: 'flex', justifyContent:'space-around' }}
+        sx={{ color: '#black', zIndex: (theme) => theme.zIndex.drawer + 1, overflow: 'scroll', display: 'flex', justifyContent: 'space-around' }}
         open={openOverlay}
       >
-        <Overlay/>
+        <div style={{ marginTop: '200px' }}>
+          <Overlay />
+        </div>
       </Backdrop>}
     </div>
   )
