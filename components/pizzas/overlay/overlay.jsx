@@ -2,24 +2,45 @@ import stateContext from '@/util/context'
 import style from './overlay.module.css'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import { cheeseType, pizzaSauces, veggies } from '@/util/pizzaOptions'
-import { useEffect, useState } from 'react'
+import { cheeseType, pizzaSauces, selectedPizza, veggies } from '@/util/pizzaOptions'
+import { useRef, useState } from 'react'
 import Select from 'react-select';
 import { useSession } from 'next-auth/react'
+import PostMethod from '@/util/postMethod'
 
 export default function Overlay() {
-
+  
   const { data: session } = useSession()
   const router = useRouter()
-
+  const viggiesRef = useRef()
+  
   const { setOpenOverlay } = stateContext()
   const [selectedSauce, setSelectSauce] = useState('')
   const [selectedCheese, setSelectCheee] = useState('')
+  
+  const selectedItem = selectedPizza(session, router)
 
   async function addToCartHandler(){
     if(!session){
       alert('please login to add to cart')
       return
+    }
+
+    const selectedVeggies = viggiesRef.current.props.value
+    const cartItems = selectedPizza(session, router, selectedSauce, selectedCheese, selectedVeggies)
+    console.log(cartItems)
+
+    try {
+      console.log("let's go")
+      const response = await PostMethod('/api/cart/add-to-cart', cartItems)
+
+      console.log(response)
+      if(response.message === 'success'){
+        alert('added to cart')
+      }
+
+    } catch (error) {
+      alert('failed attepmt! Could not add to cart!')
     }
   }
 
@@ -28,13 +49,13 @@ export default function Overlay() {
 
       <p className={style.close} onClick={() => {
         setOpenOverlay(false)
-        router.push(router.query.pizzas)
+        router.push(selectedItem.base)
       }}
       >close
       </p>
       <Image
-        src={router.query.image}
-        alt={router.query.name}
+        src={selectedItem.image}
+        alt={selectedItem.name}
         width={300}
         height={300}
         className={style.img}
@@ -48,11 +69,12 @@ export default function Overlay() {
         className="basic-multi-select"
         classNamePrefix="select"
         placeholder='Select your veggies'
+        ref={viggiesRef}
       />
 
-      <h3>{router.query.name}</h3>
-      <p>{router.query.toppings}</p>
-      <p>Size: {router.query.size && router.query.size.split('-')[0]}</p>
+      <h3>{selectedItem.name}</h3>
+      <p>{selectedItem.toppings}</p>
+      <p>Size: {selectedItem.size}</p>
 
       <h3 className={style.option}>Pick your favourite sauce: </h3>
       <div className={style.sauces}>
