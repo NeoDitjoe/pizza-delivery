@@ -6,7 +6,6 @@ export default function Pizzas(props){
 
   const { pizzas } = props
 
-  console.log(pizzas[0].name)
   return(
     <Home 
       children={<ShowPizza data={pizzas}/>}
