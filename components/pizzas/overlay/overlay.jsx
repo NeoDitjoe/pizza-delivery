@@ -15,7 +15,7 @@ export default function Overlay() {
   const router = useRouter()
   const viggiesRef = useRef()
   
-  const { setOpenOverlay } = stateContext()
+  const { setOpenOverlay, setAlert } = stateContext()
   const [selectedSauce, setSelectSauce] = useState('')
   const [selectedCheese, setSelectCheee] = useState('')
   const [loadingButton, setLoadingButton] = useState(false)
@@ -24,7 +24,7 @@ export default function Overlay() {
 
   async function addToCartHandler(){
     if(!session){
-      alert('please login to add to cart')
+      setAlert('please login to add to cart')
       return
     }
 
@@ -37,12 +37,12 @@ export default function Overlay() {
       const response = await PostMethod('/api/cart/add-to-cart', cartItems)
 
       if(response.message === 'success'){
-        alert('added to cart')
+        setAlert('added to cart')
         setLoadingButton(false)
       }
 
     } catch (error) {
-      alert('failed attepmt! Could not add to cart!')
+      setAlert('failed attepmt! Could not add to cart!')
       setLoadingButton(false)
     }
   }

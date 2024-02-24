@@ -1,0 +1,25 @@
+.footer {
+  background-color: burlywood;
+  padding: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.children {
+  min-height: 75vh;
+}
+
+.alert {
+  text-align: center;
+  padding: 20px;
+  background-color: black;
+  max-width: 16.3em;
+  color: white;
+  margin-left: 10px;
+  border-radius: 5px;
+  margin-bottom: 1px;
+
+  position: fixed;
+  bottom: 10px;
+  z-index: 2000;
+}

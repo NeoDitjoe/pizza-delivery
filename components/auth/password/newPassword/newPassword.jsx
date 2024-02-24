@@ -7,6 +7,7 @@ import style from './newPassword.module.css'
 import { Backdrop, CircularProgress } from '@mui/material';
 import { useRouter } from 'next/router';
 import PostMethod from '@/util/postMethod';
+import stateContext from '@/util/context';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -18,8 +19,9 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function CreateNewPassword() {
 
-  const [ loadingButton, setLoadingButton ] = useState(false)
+  const { setAlert } = stateContext()
   const router = useRouter()
+  const [ loadingButton, setLoadingButton ] = useState(false)
 
   async function resetPasswordHandler(e){
     e.preventDefault()
@@ -41,13 +43,13 @@ export default function CreateNewPassword() {
       const response = await PostMethod('/api/auth/newPassword', data)
 
       if(response.message === 'success'){
-        alert('password changed')
+        setAlert('password changed')
         setLoadingButton(false)
         router.push('/auth')
         
       }
     } catch (error) {
-      alert(error.message)
+      setAlert(error.message)
       setLoadingButton(false)
     }
   }
