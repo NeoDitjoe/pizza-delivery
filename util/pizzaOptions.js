@@ -53,3 +53,25 @@ export const veggies = [
   { value: 'banana pepper', label: 'Banana Pepper' },
   { value: 'broccoli', label: 'Broccoli' },
 ];
+
+export function selectedPizza(session, router, selectedSauce, selectedCheese, selectedVeggies) {
+
+  const getSelectedVeggies = selectedVeggies &&  selectedVeggies.map((veg) => {
+    return veg.value
+  })
+
+  const selectedItem = {
+    user: session.user.email.email,
+    name : router.query.name && router.query.name.replaceAll('-', ' '),
+    toppings : router.query.toppings && router.query.toppings.replaceAll('-', ', '),
+    image: router.query.image && router.query.image,
+    size: router.query.size && router.query.size.split('-')[0],
+    price: router.query.size && router.query.size.split('-')[1],
+    sauce: selectedSauce,
+    cheese: selectedCheese,
+    veggies: getSelectedVeggies,
+    base: router.query.pizzas
+  }
+
+  return selectedItem
+}

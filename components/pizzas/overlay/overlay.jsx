@@ -2,49 +2,84 @@ import stateContext from '@/util/context'
 import style from './overlay.module.css'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import { cheeseType, pizzaSauces, veggies } from '@/util/pizzaOptions'
-import { useState } from 'react'
+import { cheeseType, pizzaSauces, selectedPizza, veggies } from '@/util/pizzaOptions'
+import { useRef, useState } from 'react'
 import Select from 'react-select';
+import { useSession } from 'next-auth/react'
+import PostMethod from '@/util/postMethod'
+import { CircularProgress } from '@mui/material'
 
 export default function Overlay() {
-
+  
+  const { data: session } = useSession()
+  const router = useRouter()
+  const viggiesRef = useRef()
+  
   const { setOpenOverlay } = stateContext()
   const [selectedSauce, setSelectSauce] = useState('')
   const [selectedCheese, setSelectCheee] = useState('')
-  const router = useRouter()
+  const [loadingButton, setLoadingButton] = useState(false)
+  
+  const selectedItem = selectedPizza(session, router)
+
+  async function addToCartHandler(){
+    if(!session){
+      alert('please login to add to cart')
+      return
+    }
+
+    const selectedVeggies = viggiesRef.current.props.value
+    const cartItems = selectedPizza(session, router, selectedSauce, selectedCheese, selectedVeggies)
+    console.log(cartItems)
+
+    try {
+      setLoadingButton(true)
+      const response = await PostMethod('/api/cart/add-to-cart', cartItems)
+
+      if(response.message === 'success'){
+        alert('added to cart')
+        setLoadingButton(false)
+      }
+
+    } catch (error) {
+      alert('failed attepmt! Could not add to cart!')
+      setLoadingButton(false)
+    }
+  }
 
   return (
     <div className={style.backdrop}>
 
       <p className={style.close} onClick={() => {
         setOpenOverlay(false)
-        router.push(router.query.pizzas)
+        router.push(selectedItem.base)
       }}
       >close
       </p>
       <Image
-        src={router.query.image}
-        alt={router.query.name}
+        src={selectedItem.image}
+        alt={selectedItem.name}
         width={300}
         height={300}
         className={style.img}
       />
 
       <Select
-        // defaultValue={[colourOptions[2], colourOptions[3]]}
+        defaultValue={[veggies[1], veggies[3]]}
         isMulti
         name="colors"
         options={veggies}
         className="basic-multi-select"
         classNamePrefix="select"
         placeholder='Select your veggies'
+        ref={viggiesRef}
       />
 
-      <h3>{router.query.name}</h3>
-      <p>{router.query.toppings}</p>
-      <p>Size: {router.query.size && router.query.size.split('-')[0]}</p>
+      <h3>{selectedItem.name}</h3>
+      <p>{selectedItem.toppings}</p>
+      <p>Size: {selectedItem.size}</p>
 
-      <h3 className={style.option}>Pick your favourite sauce: </h3>
+      <h3 className={style.option}>Add your favourite Sauce: </h3>
       <div className={style.sauces}>
         {
           pizzaSauces.map((sauce) => (
@@ -58,7 +93,7 @@ export default function Overlay() {
         }
       </div>
 
-      <h3 className={style.option}>which Cheese would you like ? </h3>
+      <h3 className={style.option}>With your prefered Cheese: </h3>
       <div className={style.sauces}>
         {
           cheeseType.map((sauce) => (
@@ -74,8 +109,10 @@ export default function Overlay() {
 
       <br />
 
-      <button className={style.addToCart}>
-        Cost: R {router.query.size && Number(router.query.size.split('-')[1]).toFixed(2)}
+      <button 
+        onClick={addToCartHandler}
+        className={style.addToCart}>
+        {loadingButton ? <CircularProgress size={'20px'}/> :'Add To Cart'}
       </button>
     </div>
   )
