@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import { RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
+import stateContext from '@/util/context';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -21,6 +22,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function AuthForm() {
+
+  const { setAlert } = stateContext()
 
   const [open, setOpen] = useState(true)
   const [image, setImage] = useState(null)
@@ -58,17 +61,17 @@ export default function AuthForm() {
 
       if (response.ok) {
         setSubmitLoader(false)
-        alert('successfully logged in')
+        setAlert('successfully logged in')
         router.push('/')
       }
 
       if (response.error) {
-        alert(response.error)
+        setAlert(response.error)
         setSubmitLoader(false)
       }
 
     } catch (error) {
-      alert('Something Went Wrong')
+      setAlert('Something Went Wrong')
       setSubmitLoader(false)
     }
   }
@@ -97,7 +100,7 @@ export default function AuthForm() {
       const response = await PostMethod('/api/auth/signUp', userData)
 
       if (response.message === 'success') {
-        alert('check your email for verification code. Code expires in 10 minutes')
+        setAlert('check your email for verification code. Code expires in 10 minutes')
 
         const res = await PostMethod('/api/auth/emailer', user)
 
@@ -109,7 +112,7 @@ export default function AuthForm() {
       }
     } catch (error) {
       setSubmitLoader(false)
-      alert(error.message || 'Check your internet connection')
+      setAlert(error.message || 'Check your internet connection')
     }
 
   }

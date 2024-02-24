@@ -8,6 +8,7 @@ import { Backdrop, CircularProgress } from '@mui/material';
 import { useRouter } from 'next/router';
 import PostMethod from '@/util/postMethod';
 import { v4 as uuidv4 } from 'uuid';
+import stateContext from '@/util/context';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -19,6 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function ForgotPassword() {
 
+  const { setAlert } = stateContext()
   const router = useRouter()
   const [ loadingButton, setLoadingButton ] = useState(false)
 
@@ -33,12 +35,12 @@ export default function ForgotPassword() {
       const response = await PostMethod('/api/auth/sendCode' , {email: email, code: code})
 
       if(response.message === 'success'){
-        alert('successfully sent code')
+        setAlert('successfully sent code')
         setLoadingButton(false)
         router.push('/auth/reset-password/create-new-password')
       }
     } catch (error) {
-      alert('Something went wrong')
+      setAlert('Something went wrong')
       setLoadingButton(false)
     }
   }
