@@ -7,6 +7,7 @@ import { useRef, useState } from 'react'
 import Select from 'react-select';
 import { useSession } from 'next-auth/react'
 import PostMethod from '@/util/postMethod'
+import { CircularProgress } from '@mui/material'
 
 export default function Overlay() {
   
@@ -17,6 +18,7 @@ export default function Overlay() {
   const { setOpenOverlay } = stateContext()
   const [selectedSauce, setSelectSauce] = useState('')
   const [selectedCheese, setSelectCheee] = useState('')
+  const [loadingButton, setLoadingButton] = useState(false)
   
   const selectedItem = selectedPizza(session, router)
 
@@ -31,16 +33,17 @@ export default function Overlay() {
     console.log(cartItems)
 
     try {
-      console.log("let's go")
+      setLoadingButton(true)
       const response = await PostMethod('/api/cart/add-to-cart', cartItems)
 
-      console.log(response)
       if(response.message === 'success'){
         alert('added to cart')
+        setLoadingButton(false)
       }
 
     } catch (error) {
       alert('failed attepmt! Could not add to cart!')
+      setLoadingButton(false)
     }
   }
 
@@ -76,7 +79,7 @@ export default function Overlay() {
       <p>{selectedItem.toppings}</p>
       <p>Size: {selectedItem.size}</p>
 
-      <h3 className={style.option}>Pick your favourite sauce: </h3>
+      <h3 className={style.option}>Add your favourite Sauce: </h3>
       <div className={style.sauces}>
         {
           pizzaSauces.map((sauce) => (
@@ -90,7 +93,7 @@ export default function Overlay() {
         }
       </div>
 
-      <h3 className={style.option}>which Cheese would you like ? </h3>
+      <h3 className={style.option}>With your prefered Cheese: </h3>
       <div className={style.sauces}>
         {
           cheeseType.map((sauce) => (
@@ -109,7 +112,7 @@ export default function Overlay() {
       <button 
         onClick={addToCartHandler}
         className={style.addToCart}>
-        Add To Cart
+        {loadingButton ? <CircularProgress size={'20px'}/> :'Add To Cart'}
       </button>
     </div>
   )
