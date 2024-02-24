@@ -30,7 +30,6 @@ export default function Overlay() {
 
     const selectedVeggies = viggiesRef.current.props.value
     const cartItems = selectedPizza(session, router, selectedSauce, selectedCheese, selectedVeggies)
-    console.log(cartItems)
 
     try {
       setLoadingButton(true)
