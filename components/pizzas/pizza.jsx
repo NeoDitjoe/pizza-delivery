@@ -61,7 +61,6 @@ export default function ShowPizza(props) {
                                 onClick={() => {
                                   router.push(`
                                     ${router.query.pizzas}?name=${pizza.name.split(' ').join('-')}&size=${key + '-' + value}&base=${router.query.pizzas}&image=${pizza.image}&toppings=${pizza.toppings.join('-')}`)
-                                  console.log(pizza)
                                   setOpenOverlay(true)
                                 }}
                               >

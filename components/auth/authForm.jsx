@@ -42,7 +42,7 @@ export default function AuthForm() {
       setImage(reader.result)
     }
     reader.onerror = error => {
-      console.log('Error: ', error)
+      console.error('Error: ', error)
     }
   }
 
