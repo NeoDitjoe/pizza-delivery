@@ -1,0 +1,8 @@
+.table td {
+  border-bottom: 1px solid;
+}
+
+.qty {
+  /* border-left: 1px solid; */
+  text-align: center;
+}
