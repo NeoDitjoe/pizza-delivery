@@ -10,6 +10,7 @@ export default function Navbar() {
   const router = useRouter()
 
   const isHomePage = router.asPath === '/'
+  const isAdmin = session?.user?.email?.admin
 
   const username = session
     && session
@@ -22,6 +23,19 @@ export default function Navbar() {
       .user
       .email
       .username.slice(1)
+
+  if (isAdmin) {
+    return (
+      <div className={isHomePage ? style.background : style.backgroundB}>
+        <div className={style.navbar}>
+
+          <Link href={'/'}>View-as-Customer</Link>
+          <Link href={'/dashboard'}>Dashboard</Link>
+        </div>
+
+      </div>
+    )
+  }
 
   return (
     <Fragment>
