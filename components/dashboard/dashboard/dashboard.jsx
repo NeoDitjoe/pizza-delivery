@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import style from './dashboard.module.css'
+import { FaPen } from "react-icons/fa";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -43,9 +44,15 @@ export default function Dashboard(props) {
                     const qty = Object.values(item)
 
                     return (
-                      <tr>
+                      <tr className={style.item}>
                         <td>{name}</td>
-                        <td className={style.qty}>{qty}</td>
+                        <td className={style.qty}>
+                          {qty}
+                          <FaPen 
+                            className={style.editPen}
+                            onClick={() => console.log(item)}
+                          />
+                        </td>
                       </tr>
                     )
                   })

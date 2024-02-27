@@ -6,3 +6,14 @@
   /* border-left: 1px solid; */
   text-align: center;
 }
+
+.editPen{
+  margin-left: 15px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+
+.item:hover .editPen{
+  opacity: 1;
+}
