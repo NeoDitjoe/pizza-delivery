@@ -2,6 +2,10 @@
   border-bottom: 1px solid;
 }
 
+.table  h2{
+  color: black;
+}
+
 .qty {
   /* border-left: 1px solid; */
   text-align: center;

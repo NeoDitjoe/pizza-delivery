@@ -18,77 +18,40 @@ export default function Dashboard(props) {
 
   const { data } = props
 
-  function table(product) {
-    return (
-      <Item>
-        
-        <table className={style.table}>
-          <tr>
-            <td>
-              <h3>name</h3>
-            </td>
-            <td className={style.qty}>
-              <h3>quantity</h3>
-            </td>
-          </tr>
-
-          <tbody>
-            {
-              data?.map((item) => {
-                return (
-                  item?.[product].map((item) => {
-
-                    let name = Object.keys(item).join('-')
-                    name = name.replaceAll('-', ' ')
-
-                    const qty = Object.values(item)
-
-                    return (
-                      <tr className={style.item}>
-                        <td>{name}</td>
-                        <td className={style.qty}>
-                          {qty}
-                          <FaPen 
-                            className={style.editPen}
-                            onClick={() => console.log(item)}
-                          />
-                        </td>
-                      </tr>
-                    )
-                  })
-                )
-
-              })
-            }
-          </tbody>
-        </table>
-      </Item>
-    )
-  }
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={{ xs: 0, md: 0 }}>
         <Grid xs={12} md={3} s={6} mx={0}>
-          <h2>Base</h2>
-          {table('base')}
-        </Grid>
+          <Item>
+            {
+              data?.map((items) => (
+                <table className={style.table}>
+                  <h2>{items.category}</h2>
+                  <tr>
+                    <td>name</td>
+                    <td className={style.qty}>quantity</td>
+                  </tr>
 
-        <Grid xs={12} md={3} s={6}>
-        <h2>Cheese</h2>
-          {table('cheese')}
+                  <tbody>
+                    {
+                      items.items.map((item) => (
+                        <tr className={style.item}>
+                          <td>{Object.keys(item)}</td>
+                          <td className={style.qty}>
+                            {Object.values(item)}
+                            <FaPen
+                              className={style.editPen}
+                              onClick={() => console.log(items.category)}
+                            />
+                          </td>
+                        </tr>
+                      ))
+                    }
+                  </tbody>
+                </table>
+              ))}
+          </Item>
         </Grid>
-
-        <Grid xs={12} md={3} s={12}>
-        <h2>sauces</h2>
-          {table('sauce')}
-        </Grid>
-
-        <Grid xs={12} md={3} s={12}>
-        <h2>Veggies</h2>
-          {table('sauce')}
-        </Grid>
-        
       </Grid>
     </Box>
   )
