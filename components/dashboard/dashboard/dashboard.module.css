@@ -2,7 +2,38 @@
   border-bottom: 1px solid;
 }
 
+.table  h2{
+  color: black;
+}
+
 .qty {
   /* border-left: 1px solid; */
   text-align: center;
+}
+
+.editPen{
+  margin-left: 15px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+
+.item:hover .editPen{
+  opacity: 1;
+}
+
+.form {
+  display: flex;
+
+}
+
+.form input{
+  width: 30px;
+}
+
+.form button{
+  background: transparent;
+  border: none;
+  color: green;
+  cursor: pointer;
 }

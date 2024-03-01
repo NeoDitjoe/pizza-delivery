@@ -3,6 +3,14 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import style from './dashboard.module.css'
+import { FaPen } from "react-icons/fa";
+import stateContext from '@/util/context';
+import PostMethod from '@/util/postMethod';
+import { useRouter } from 'next/router';
+import { TiTick } from "react-icons/ti";
+import { RxCross2 } from "react-icons/rx";
+import { CircularProgress } from '@mui/material';
+import { useState } from 'react';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -16,72 +24,101 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Dashboard(props) {
 
   const { data } = props
+  const router = useRouter()
+  const { setAlert } = stateContext()
+  const [loading, setLoading] = useState(false)
 
-  function table(product) {
-    return (
-      <Item>
-        
-        <table className={style.table}>
-          <tr>
-            <td>
-              <h3>name</h3>
-            </td>
-            <td className={style.qty}>
-              <h3>quantity</h3>
-            </td>
-          </tr>
+  async function editHandler(edit) {
 
-          <tbody>
-            {
-              data?.map((item) => {
-                return (
-                  item?.[product].map((item) => {
-
-                    let name = Object.keys(item).join('-')
-                    name = name.replaceAll('-', ' ')
-
-                    const qty = Object.values(item)
-
-                    return (
-                      <tr>
-                        <td>{name}</td>
-                        <td className={style.qty}>{qty}</td>
-                      </tr>
-                    )
-                  })
-                )
-
-              })
-            }
-          </tbody>
-        </table>
-      </Item>
-    )
+    try {
+      setLoading(true)
+      const response = await PostMethod('/api/dashboard/editQty', edit)
+      if (response.message === 'success') {
+        setLoading(false)
+        setAlert('success')
+        router.push('/dashboard')
+      }
+    } catch (error) {
+      setLoading(false)
+      setAlert('Something went wrong!')
+    }
   }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={{ xs: 0, md: 0 }}>
-        <Grid xs={12} md={3} s={6} mx={0}>
-          <h2>Base</h2>
-          {table('base')}
-        </Grid>
+        <Grid xs={12} md={12} s={12} mx={0}>
+          <Item>
+            {
+              data?.map((items) => (
+                <table className={style.table}>
+                  <h2>{items.category}</h2>
+                  <tr>
+                    <td>name</td>
+                    <td className={style.qty}>quantity</td>
+                  </tr>
 
-        <Grid xs={12} md={3} s={6}>
-        <h2>Cheese</h2>
-          {table('cheese')}
-        </Grid>
+                  <tbody>
+                    {
+                      items.items.map((item) => {
 
-        <Grid xs={12} md={3} s={12}>
-        <h2>sauces</h2>
-          {table('sauce')}
-        </Grid>
+                        const edit = router.query.edit === item.name
 
-        <Grid xs={12} md={3} s={12}>
-        <h2>Veggies</h2>
-          {table('sauce')}
+                        return (
+                          <tr className={style.item}>
+                            <td>{item.name}</td>
+                            <td className={style.qty}>
+                              {
+                                edit
+                                  ? <form
+                                    onSubmit={(e) => {
+                                      e.preventDefault()
+
+                                      const formData = new FormData(e.target)
+                                      const newQty = Number(formData.get('qty'))
+
+                                      editHandler({ category: items.category, product: item.name, qty: newQty })
+                                    }}
+                                    action='#'
+                                    className={style.form}
+                                  >
+                                    <input type='number' name='qty' required />
+                                    {
+                                      !loading
+                                        ? <div>
+                                          <button>
+                                            <TiTick size={'20px'} />
+                                          </button>
+                                          <RxCross2
+                                            color='red'
+                                            size='20px'
+                                            onClick={() => router.push('/dashboard')}
+                                            cursor={'pointer'}
+                                          />
+                                        </div>
+                                        : <CircularProgress size={'20px'} />
+                                    }
+                                  </form>
+                                  : item.quantity
+                              }
+
+                              {
+                                !edit && <FaPen
+                                  className={style.editPen}
+                                  onClick={() => router.push(`/dashboard?edit=${item.name}`)}
+                                />
+                              }
+
+                            </td>
+                          </tr>
+                        )
+                      })
+                    }
+                  </tbody>
+                </table>
+              ))}
+          </Item>
         </Grid>
-        
       </Grid>
     </Box>
   )
