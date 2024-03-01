@@ -1,6 +1,6 @@
 import client from "../connectClient";
 
-export default async function updateQty(base, cheese, sauce) {
+export default async function updateQty(base, cheese, sauce, veggies) {
   const db = client.db('dashboard');
   let CheeseQty
   if (cheese) {
@@ -31,7 +31,7 @@ export default async function updateQty(base, cheese, sauce) {
       { $set: { "items.$.quantity": baseQty - 1 } }
     );
   }
-
+  
   let SauceQty
   if (sauce) {
     const getCheese = await db.collection('stock').findOne({ category: 'Sauces' })
@@ -45,5 +45,23 @@ export default async function updateQty(base, cheese, sauce) {
       { category: 'Sauces', "items.name": sauce },
       { $set: { "items.$.quantity": SauceQty - 1 } }
     );
+  }
+
+  let veggiesQty
+  if (veggies) {
+    veggies.map(async (veg) => {
+      const getCheese = await db.collection('stock').findOne({ category: 'Veggies' })
+
+      getCheese.items.map((item) => {
+        if (item.name === veg.label) {
+          veggiesQty = item.quantity
+        }
+      })
+  
+      await db.collection('stock').updateOne(
+        { category: 'Veggies', "items.name": veg.label },
+        { $set: { "items.$.quantity": veggiesQty - 1 } }
+      );
+  })
   }
 }
