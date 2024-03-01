@@ -37,3 +37,9 @@
   color: green;
   cursor: pointer;
 }
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 30% 30%;
+  justify-content: space-around;
+}
