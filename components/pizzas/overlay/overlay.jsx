@@ -29,14 +29,14 @@ export default function Overlay() {
     }
     
     const selectedVeggies = viggiesRef.current.props.value
-    await PostMethod('/api/dashboard/updateQty', {base: router.query.pizzas, 
-      cheese: selectedCheese, sauce: selectedSauce, veggies: selectedVeggies})
-
     const cartItems = selectedPizza(session, router, selectedSauce, selectedCheese, selectedVeggies)
 
     try {
       setLoadingButton(true)
       const response = await PostMethod('/api/cart/add-to-cart', cartItems)
+      await PostMethod('/api/dashboard/updateQty', {base: router.query.pizzas, 
+        cheese: selectedCheese, sauce: selectedSauce, veggies: selectedVeggies})
+  
 
       if(response.message === 'success'){
         setAlert('added to cart')

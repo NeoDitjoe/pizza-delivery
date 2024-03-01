@@ -70,7 +70,8 @@ export function selectedPizza(session, router, selectedSauce, selectedCheese, se
     sauce: selectedSauce,
     cheese: selectedCheese,
     veggies: getSelectedVeggies,
-    base: router.query.pizzas
+    base: router.query.pizzas,
+    status: 'Order as been sent'
   }
 
   return selectedItem
