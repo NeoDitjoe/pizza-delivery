@@ -48,7 +48,7 @@ export default function Dashboard(props) {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={{ xs: 0, md: 0 }}>
         <Grid xs={12} md={12} s={12} mx={0}>
-          <Item>
+          <Item className={style.dashboard}>
             {
               data?.map((items) => (
                 <table className={style.table}>
