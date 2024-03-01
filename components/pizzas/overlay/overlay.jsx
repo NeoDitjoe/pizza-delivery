@@ -28,6 +28,8 @@ export default function Overlay() {
       return
     }
 
+    await PostMethod('/api/dashboard/updateQty', {base: router.query.pizzas, cheese: selectedCheese, sauce: selectedSauce})
+
     const selectedVeggies = viggiesRef.current.props.value
     const cartItems = selectedPizza(session, router, selectedSauce, selectedCheese, selectedVeggies)
 

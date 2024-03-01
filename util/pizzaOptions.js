@@ -16,7 +16,7 @@ const pizzaBase = [
     link: 'classic-neapolitan-pizza-dough',
   },
   {
-    name: 'New York-Style Pizza Dough',
+    name: 'New York Style Pizza Dough',
     image: newYork,  
     link: 'new-york-style-pizza-dough',
   },
