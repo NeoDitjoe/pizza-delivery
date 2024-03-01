@@ -12,7 +12,7 @@ export default function Home({children}){
         {
           pizzaBase.map((item, index) => {
             return(
-              <Link href={item.link} key={index}>
+              <Link href={item.name} key={index}>
                 <Image 
                   src={item.image}
                   width={200}
