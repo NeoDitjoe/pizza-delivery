@@ -155,7 +155,7 @@ export default function AuthForm() {
                   </div>
                 </Item>
               </Grid>
-
+{/* 
               {
                 !haveAccout
                   ? <Grid xs={8} md={8} s={2}  >
@@ -165,7 +165,7 @@ export default function AuthForm() {
                     </Item>
                   </Grid>
                   : ''
-              }
+              } */}
 
               <Grid xs={3} md={3} s={2}  >
                 <Item style={{
