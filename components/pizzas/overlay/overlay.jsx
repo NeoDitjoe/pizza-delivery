@@ -8,6 +8,7 @@ import Select from 'react-select';
 import { useSession } from 'next-auth/react'
 import PostMethod from '@/util/postMethod'
 import { CircularProgress } from '@mui/material'
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Overlay() {
   
@@ -29,14 +30,14 @@ export default function Overlay() {
     }
     
     const selectedVeggies = viggiesRef.current.props.value
-    await PostMethod('/api/dashboard/updateQty', {base: router.query.pizzas, 
-      cheese: selectedCheese, sauce: selectedSauce, veggies: selectedVeggies})
-
-    const cartItems = selectedPizza(session, router, selectedSauce, selectedCheese, selectedVeggies)
+    const cartItems = selectedPizza(session, router, selectedSauce, selectedCheese, selectedVeggies, uuidv4())
 
     try {
       setLoadingButton(true)
       const response = await PostMethod('/api/cart/add-to-cart', cartItems)
+      await PostMethod('/api/dashboard/updateQty', {base: router.query.pizzas, 
+        cheese: selectedCheese, sauce: selectedSauce, veggies: selectedVeggies})
+  
 
       if(response.message === 'success'){
         setAlert('added to cart')

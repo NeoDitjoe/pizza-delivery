@@ -76,3 +76,10 @@
   padding-left: 240px;
   padding-right: 240px;
 }
+
+@media only screen and (max-width: 422px){
+  .backgroundB{
+    height: 37vh;
+    margin-bottom: -150px;
+  }
+}
