@@ -8,6 +8,7 @@ import Select from 'react-select';
 import { useSession } from 'next-auth/react'
 import PostMethod from '@/util/postMethod'
 import { CircularProgress } from '@mui/material'
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Overlay() {
   
@@ -29,7 +30,7 @@ export default function Overlay() {
     }
     
     const selectedVeggies = viggiesRef.current.props.value
-    const cartItems = selectedPizza(session, router, selectedSauce, selectedCheese, selectedVeggies)
+    const cartItems = selectedPizza(session, router, selectedSauce, selectedCheese, selectedVeggies, uuidv4())
 
     try {
       setLoadingButton(true)

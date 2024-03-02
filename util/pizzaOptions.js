@@ -54,7 +54,7 @@ export const veggies = [
   { value: 'broccoli', label: 'Broccoli' },
 ];
 
-export function selectedPizza(session, router, selectedSauce, selectedCheese, selectedVeggies) {
+export function selectedPizza(session, router, selectedSauce, selectedCheese, selectedVeggies, uniqueId) {
 
   const getSelectedVeggies = selectedVeggies &&  selectedVeggies.map((veg) => {
     return veg.value
@@ -72,7 +72,8 @@ export function selectedPizza(session, router, selectedSauce, selectedCheese, se
     cheese: selectedCheese,
     veggies: getSelectedVeggies,
     base: router.query.pizzas,
-    status: 'Order as been sent'
+    status: 'Order as been sent',
+    uniqueId
   }
 
   return selectedItem
