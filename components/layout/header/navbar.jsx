@@ -31,6 +31,7 @@ export default function Navbar() {
 
           <Link href={'/'}>View-as-Customer</Link>
           <Link href={'/dashboard'}>Dashboard</Link>
+          <Link href={'/dashboard/orders'}>Orders</Link>
         </div>
 
       </div>
