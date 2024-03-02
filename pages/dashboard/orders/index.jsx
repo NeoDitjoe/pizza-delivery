@@ -3,24 +3,31 @@ import getOrders from "@/util/database/dashboard/getOrders";
 
 import DashboardLayout from "@/components/dashboard/layout";
 
-export default function OrdersPage(props){
+export default function OrdersPage(props) {
 
-  const { ordersData }  = props
+  const { ordersData } = props
 
-  return(
+  return (
     <DashboardLayout>
-      <Orders 
-        orders={ordersData}
-      />
+      <div style={{
+        paddingLeft: '200px',
+        paddingRight: '200px',
+        paddingTop: '10px'
+      }}>
+        <Orders
+          orders={ordersData}
+        />
+
+      </div>
     </DashboardLayout>
   )
 }
 
-export async function getServerSideProps(){
+export async function getServerSideProps() {
 
   const ordersData = await getOrders()
 
-  return{
+  return {
     props: {
       ordersData
     }
