@@ -1,44 +1,44 @@
-.cart{
+.cart {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  justify-content: space-between; 
-  
+  justify-content: space-between;
+
 }
 
-.orders{
+.orders {
   display: grid;
   grid-template-columns: 50% 50%;
   gap: 20px;
 }
 
-.order{
+.order {
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.297);
   padding: 20px;
 }
 
-.order h5{
+.order h5 {
   margin-top: -10px;
   margin-bottom: -10px;
   text-align: end;
 }
 
-.heading{
+.heading {
   font-weight: 900;
   margin-top: -10px;
-  margin-bottom: -20px ;
+  margin-bottom: -20px;
 }
 
 
-.custom{
+.custom {
   padding-left: 50px;
   margin-top: -20px;
 }
 
-.status{
+.status {
   text-align: center;
 }
 
-.button{
+.button {
   display: flex;
   flex-direction: column;
   margin-top: -10px;
@@ -46,7 +46,7 @@
 
 .button button {
   padding: 13px;
-  border-radius: 5px ;
+  border-radius: 5px;
   border: 1px solid;
   margin: 5px;
   cursor: pointer;
@@ -54,14 +54,57 @@
   margin-right: 30px;
 }
 
-.recieved{
+.recieved {
   background: rgb(115, 205, 215);
 }
 
-.inKitchen{
+.inKitchen {
   background: burlywood;
 }
 
-.onTheWay{
+.onTheWay {
   background: rgba(6, 205, 6, 0.636);
+}
+
+.page {
+  padding-left: 200px;
+  padding-right: 200px;
+  padding-top: 10px
+}
+
+@media only screen and (max-width: 1254px) {
+  .page {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+@media only screen and (max-width: 1025px) {
+  .page {
+    padding-left: 30px;
+    padding-right: 50px;
+  }
+}
+
+@media only screen and (max-width: 910px) {
+  .page {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .orders {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .custom {
+    padding-left: 10px;
+  }
+
+  .cart{
+    display: flex;
+    flex-direction: column;
+  }
 }
