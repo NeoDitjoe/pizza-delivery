@@ -61,8 +61,8 @@ export function selectedPizza(session, router, selectedSauce, selectedCheese, se
   })
 
   const selectedItem = {
-    user: session.user.email.email,
-    username: session.user.email.username,
+    user: session?.user?.email.email,
+    username: session?.user?.email.username,
     name : router.query.name && router.query.name.replaceAll('-', ' '),
     toppings : router.query.toppings && router.query.toppings.replaceAll('-', ', '),
     image: router.query.image && router.query.image,
