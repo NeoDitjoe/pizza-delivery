@@ -29,6 +29,7 @@ export default async function main(userEmail, username, verificationCode) {
   });
 
 }
+
 export async function sendCodeToEmail(email, code) {
   const info = await transporter.sendMail({
     from: '"Pizza4Real 🍕" no-reply@gmail.com',
@@ -38,6 +39,25 @@ export async function sendCodeToEmail(email, code) {
     html: `
       Reset password code: <h3>${code}</h3> 
       Click <a href='https://pizza4real.vercel.app/auth/reset-password/create-new-password'>here</a> to reset your password
+      `,
+  });
+
+}
+
+export async function runningOutOfProduct(qty, productName, category) {
+  await transporter.sendMail({
+    from: '"Pizza4Real 🍕" no-reply@gmail.com',
+    to: 'ditjoeneo@gmail.com',
+    subject: "Running out of Products",
+    text: "Pizza4Real",
+    html: `
+      <div style=background: green>
+        <p>You have less than ${qty} ${productName} ${category} left</p>
+
+        <p>
+          Open <a href='https://pizza4real.vercel.app/dashboard'>Dashboard</a>
+        </p>
+      </div>
       `,
   });
 
