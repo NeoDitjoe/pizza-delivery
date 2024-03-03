@@ -32,6 +32,7 @@
 .signOut{
   background: none;
   border: none;
+  cursor: pointer;
 }
 
 .backgroundB {

@@ -21,9 +21,9 @@ export default function CreateNewPassword() {
 
   const { setAlert } = stateContext()
   const router = useRouter()
-  const [ loadingButton, setLoadingButton ] = useState(false)
+  const [loadingButton, setLoadingButton] = useState(false)
 
-  async function resetPasswordHandler(e){
+  async function resetPasswordHandler(e) {
     e.preventDefault()
 
     const formData = new FormData(e.target)
@@ -31,7 +31,7 @@ export default function CreateNewPassword() {
     const email = formData.get('email')
     const password = formData.get('password')
 
-    const data = { 
+    const data = {
       email,
       code,
       password
@@ -42,11 +42,11 @@ export default function CreateNewPassword() {
       setLoadingButton(true)
       const response = await PostMethod('/api/auth/newPassword', data)
 
-      if(response.message === 'success'){
+      if (response.message === 'success') {
         setAlert('password changed')
         setLoadingButton(false)
         router.push('/auth')
-        
+
       }
     } catch (error) {
       setAlert(error.message)
@@ -85,6 +85,7 @@ export default function CreateNewPassword() {
             <Grid xs={12} md={12} s={2}>
               <Item style={{ background: 'transparent', boxShadow: 'none' }}>
                 <button className={style.button}
+                  disabled={loadingButton}
                   type="submit">
                   {loadingButton ? <CircularProgress size={'20px'} /> : 'submit'}
                 </button>

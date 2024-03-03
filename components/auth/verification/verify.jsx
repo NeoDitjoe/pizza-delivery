@@ -74,7 +74,10 @@ export default function VerifyUserEmail() {
 
               <Grid xs={12} md={12} s={2} >
                 <Item style={{ boxShadow: 'none', background: 'transparent' }}>
-                  <button className={style.button}>{ submitLoader ? <CircularProgress size={'20px'}/> : 'Submit'}</button>
+                  <button 
+                    className={style.button}
+                    disabled={submitLoader}
+                  >{ submitLoader ? <CircularProgress size={'20px'}/> : 'Submit'}</button>
                 </Item>
               </Grid>
 
