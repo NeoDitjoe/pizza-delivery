@@ -65,6 +65,7 @@ export default function ForgotPassword() {
               <Grid xs={12} md={12} s={2}>
                 <Item style={{ background: 'transparent', boxShadow: 'none' }}>
                   <button className={style.button}
+                    disabled={loadingButton}
                     type="submit">
                     {loadingButton ? <CircularProgress size={'20px'}/> : 'submit'}
                   </button>

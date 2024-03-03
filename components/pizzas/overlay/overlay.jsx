@@ -117,6 +117,7 @@ export default function Overlay() {
       <br />
 
       <button 
+        disabled={loadingButton}
         onClick={addToCartHandler}
         className={style.addToCart}>
         {loadingButton ? <CircularProgress size={'20px'}/> :'Add To Cart'}

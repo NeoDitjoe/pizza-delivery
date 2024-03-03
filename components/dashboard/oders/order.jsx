@@ -1,23 +1,28 @@
 import stateContext from '@/util/context'
 import style from './order.module.css'
 import PostMethod from '@/util/postMethod'
+import { useState } from 'react'
 
 export default function Orders(props) {
 
   const { orders } = props
   const { setAlert } = stateContext()
+  const [disableButton, setDisableButton] = useState(false)
 
   async function updateStatusHandler(username, uniqueId, status) {
 
     try {
-      const response = await PostMethod('/api/dashboard/updateStatus', {username, uniqueId, status})
+      setDisableButton(true)
+      const response = await PostMethod('/api/dashboard/updateStatus', { username, uniqueId, status })
 
-      if(response.message === 'success'){
+      if (response.message === 'success') {
         setAlert('Customer status is updated!')
+        setDisableButton(false)
       }
 
     } catch (error) {
       setAlert('Failed to send status update!')
+      setDisableButton(false)
     }
   }
 
@@ -57,18 +62,21 @@ export default function Orders(props) {
 
                     <div className={style.button}>
                       <button
+                        disabled={disableButton}
                         className={style.recieved}
                         onClick={() => updateStatusHandler(order.username, order.uniqueId, 'Your order has been recieved')}
                       >Recieved
                       </button>
 
                       <button
+                        disabled={disableButton}
                         onClick={() => updateStatusHandler(order.username, order.uniqueId, 'Your order is in the Kitchen')}
                         className={style.inKitchen}
                       >In Kitchen
                       </button>
 
                       <button
+                        disabled={disableButton}
                         onClick={() => updateStatusHandler(order.username, order.uniqueId, 'Your order is On The Way')}
                         className={style.onTheWay}
                       >On The Way

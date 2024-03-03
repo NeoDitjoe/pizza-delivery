@@ -45,9 +45,14 @@ export default function Navbar() {
         <navbar className={style.navbar}>
           {!session
             ? <Link href='/auth'>Sign In</Link>
-            : <Link href={'/'}>Home</Link>
+            : <div>
+              <Link href={'/'}>Home</Link>
+              <button
+                className={style.signOut}
+                onClick={() => signOut()}
+              >Sign-Out</button>
+            </div>
           }
-          <Link href={'/user-profile'}>{username}</Link>
         </navbar>
       </div>
     </Fragment>

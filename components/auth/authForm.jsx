@@ -174,6 +174,7 @@ export default function AuthForm() {
                   textAlign: 'center'
                 }}>
                   <button
+                    disabled={submitLoader}
                     className={style.button}
                     type="submit">
                     {
