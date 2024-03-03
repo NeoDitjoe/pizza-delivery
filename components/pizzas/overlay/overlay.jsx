@@ -35,8 +35,11 @@ export default function Overlay() {
     try {
       setLoadingButton(true)
       const response = await PostMethod('/api/cart/add-to-cart', cartItems)
+
       await PostMethod('/api/dashboard/updateQty', {base: router.query.pizzas, 
         cheese: selectedCheese, sauce: selectedSauce, veggies: selectedVeggies})
+
+      await PostMethod('/api/dashboard/notifyAdminOnStock', {base: router.query.pizzas, cheese: selectedCheese, sauce: selectedSauce}) 
   
 
       if(response.message === 'success'){
