@@ -32,6 +32,10 @@ export default function Navbar() {
           <Link href={'/'}>View-as-Customer</Link>
           <Link href={'/dashboard'}>Dashboard</Link>
           <Link href={'/dashboard/orders'}>Orders</Link>
+          <button
+                className={style.signOut}
+                onClick={() => signOut()}
+              >Sign-Out</button>
         </div>
 
       </div>

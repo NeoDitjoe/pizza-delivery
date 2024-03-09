@@ -136,9 +136,15 @@ export default function AuthForm() {
                   </Grid>
                   : ''
               }
-
               <Grid xs={12} md={12} s={2}>
-                {haveAccout ? <h1>{'Sign In'}</h1> : ''}
+                {haveAccout
+                  ? <div>
+                    <h5>Admin Details. copy&paste</h5>
+                    <p> email: admin@pizza4real.com</p>
+                    <p> password: ThisIsThePassword</p>
+                    
+                    <h1>{'Sign In'}</h1>
+                  </div> : ''}
                 <Item>
                   <input type='email' name="email" placeholder="email" required />
                 </Item>
@@ -155,7 +161,7 @@ export default function AuthForm() {
                   </div>
                 </Item>
               </Grid>
-{/* 
+              {/* 
               {
                 !haveAccout
                   ? <Grid xs={8} md={8} s={2}  >
@@ -201,7 +207,7 @@ export default function AuthForm() {
                   >Forgot password ?</p>
                     : ''
                   }
-                  
+
                 </Item>
               </Grid>
             </Grid>
