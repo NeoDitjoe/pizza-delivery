@@ -50,7 +50,8 @@ export default function Navbar() {
           {!session
             ? <Link href='/auth'>Sign In</Link>
             : <div>
-              <Link href={'/'}>Home</Link>
+              <Link href={'/'}>Home </Link>
+              <Link href={'/cart'}> Cart</Link>
               <button
                 className={style.signOut}
                 onClick={() => signOut()}
