@@ -16,7 +16,7 @@ export default function Cart(props) {
     )
   }
 
-  async function sendOrderHandler(e){
+  async function sendOrderHandler(e) {
     e.preventDefault()
 
     const formData = new FormData(e.target)
@@ -25,67 +25,79 @@ export default function Cart(props) {
     console.log(qty)
   }
 
+  let totaPrice = []
   let qty = []
 
-  for(let i = 0; i < 10; i++){
+  for (let i = 0; i < 10; i++) {
     qty.push(i)
   }
 
   return (
 
-    data?.map((item) => {
+    <div className={style.main}>
+      {
+        data?.map((item) => {
 
-      return (
-        <div className={style.container}>
-          <div className={style.afterContainer}>
-            <div className={style.details} >
+          totaPrice.push(Number(item.price))
+          
+          return (
+            <div className={style.container}>
+              <div className={style.afterContainer}>
+                <div className={style.details} >
 
-              <div>
-                <Image
-                  src={item.image}
-                  alt='image'
-                  width={165}
-                  height={165}
-                  style={{ padding: '5px' }}
-                />
+                  <div>
+                    <Image
+                      src={item.image}
+                      alt='image'
+                      width={165}
+                      height={165}
+                      style={{ padding: '5px' }}
+                    />
+                  </div>
+
+                  <div>
+                    <h3>{item.base}</h3>
+                    <h4>{item.size} {item.name}</h4>
+                    {item.cheese && <p>Cheese: {item.cheese}</p>}
+                    {item.sauce && <p>Sauce: {item.sauce}</p>}
+                  </div>
+
+                </div>
+
+                <div className={style.price}>
+                  <div>
+                    <p>Status: {item.status}</p>
+                    <p>R {Number(item.price).toFixed(2)}</p>
+
+                    <form action='#' onSubmit={sendOrderHandler} >
+                      <select name='qty'>
+                        {
+                          qty.map((no) => (
+                            <option>{no + 1}</option>
+                          ))
+                        }
+                      </select>
+
+                    </form>
+                  </div>
+
+                  <div className={style.bin}>
+                    <RiDeleteBin2Line />
+                  </div>
+                </div>
+
               </div>
-
-              <div>
-                <h3>{item.base}</h3>
-                <h4>{item.size} {item.name}</h4>
-                {item.cheese && <p>Cheese: {item.cheese}</p>}
-                {item.sauce && <p>Sauce: {item.sauce}</p>}
-              </div>
-
             </div>
+          )
+        })
+      }
+      <div className={style.placeOrder}>
 
-            <div className={style.price}>
-              <div>
-                <p>{item.status}</p>
-                <p>R {Number(item.price).toFixed(2)}</p>
-
-                <form action='#' onSubmit={sendOrderHandler} >
-                  <select name='qty'>
-                   {
-                    qty.map((no) => (
-                      <option>{no + 1}</option>
-                    ))
-                   }
-                  </select>
-
-                  <input type='submit' />
-                </form>
-              </div>
-
-              <div className={style.bin}>
-                <RiDeleteBin2Line />
-              </div>
-            </div>
-
-          </div>
-        </div>
-      )
-    })
-
+        <p>Total: R {totaPrice.reduce((a, b) => a + b, 0).toFixed(2)}</p>
+        <button>
+          Place Order
+        </button>
+      </div>
+    </div>
   )
 }

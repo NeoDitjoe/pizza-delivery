@@ -17,7 +17,7 @@
 .afterContainer {
   display: flex;
   flex-direction: row;
-  gap: 200px;
+  gap: 100px;
   align-items: center;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.31);
 }
@@ -42,4 +42,19 @@
   margin-top: 10px;
   color: red;
   cursor: pointer;
+}
+
+.placeOrder{
+  border: 2px solid burlywood;
+  padding: 20px;
+  width: 200px;
+  margin: 20px;
+}
+
+.placeOrder button {
+  width: 100%;
+  padding: 15px;
+  background-color: burlywood;
+  border: none;
+  border-radius: 5px;
 }
