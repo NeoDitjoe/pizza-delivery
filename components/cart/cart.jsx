@@ -81,9 +81,9 @@ export default function Cart(props) {
                     </form>
                   </div>
 
-                  <div className={style.bin}>
+                  <button className={style.bin}>
                     <RiDeleteBin2Line />
-                  </div>
+                  </button>
                 </div>
 
               </div>

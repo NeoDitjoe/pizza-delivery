@@ -42,6 +42,9 @@
   margin-top: 10px;
   color: red;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 5px;
 }
 
 .placeOrder{
