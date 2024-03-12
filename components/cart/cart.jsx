@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import style from './cart.module.css'
-import Backdrop from '@mui/material/Backdrop';
-import Image from 'next/image';
-import emptyPizzaBox from '../../public/2362491aea0ced8e46d5b276fe578783-removebg-preview.png'
+import EmptyCart from './empty-cart'
+import Image from 'next/image'
+import { RiDeleteBin2Line } from "react-icons/ri";
 
 export default function Cart(props) {
   const { data } = props
@@ -12,41 +12,80 @@ export default function Cart(props) {
 
   if (!data.length > 0) {
     return (
-      <div>
-
-        <Backdrop
-          sx={{ color: 'black', background: 'transparent', marginTop: '60px', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={true}
-        >
-          <div style={{ textAlign: 'center'}}>
-            <div>
-              <Image 
-                src={emptyPizzaBox}
-                alt='empty'
-                width={140}
-                height={140}
-              />
-            </div>
-
-            <div>
-              <p>Your cart is empty</p>
-            </div>
-
-            <div>
-              <button
-                onClick={() => router.push('/Chicago Deep Dish Pizza Dough')}
-                className={style.button}
-              >
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        </Backdrop>
-      </div>
+      <EmptyCart />
     )
   }
 
+  async function sendOrderHandler(e){
+    e.preventDefault()
+
+    const formData = new FormData(e.target)
+    const qty = formData.get('qty')
+
+    console.log(qty)
+  }
+
+  let qty = []
+
+  for(let i = 0; i < 10; i++){
+    qty.push(i)
+  }
+
   return (
-    'user cart'
+
+    data?.map((item) => {
+
+      return (
+        <div className={style.container}>
+          <div className={style.afterContainer}>
+            <div className={style.details} >
+
+              <div>
+                <Image
+                  src={item.image}
+                  alt='image'
+                  width={165}
+                  height={165}
+                  style={{ padding: '5px' }}
+                />
+              </div>
+
+              <div>
+                <h3>{item.base}</h3>
+                <h4>{item.size} {item.name}</h4>
+                {item.cheese && <p>Cheese: {item.cheese}</p>}
+                {item.sauce && <p>Sauce: {item.sauce}</p>}
+              </div>
+
+            </div>
+
+            <div className={style.price}>
+              <div>
+                <p>{item.status}</p>
+                <p>R {Number(item.price).toFixed(2)}</p>
+
+                <form action='#' onSubmit={sendOrderHandler} >
+                  <select name='qty'>
+                   {
+                    qty.map((no) => (
+                      <option>{no + 1}</option>
+                    ))
+                   }
+                  </select>
+
+                  <input type='submit' />
+                </form>
+              </div>
+
+              <div className={style.bin}>
+                <RiDeleteBin2Line />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )
+    })
+
   )
 }

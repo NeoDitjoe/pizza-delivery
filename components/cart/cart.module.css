@@ -5,3 +5,41 @@
   cursor: pointer;
   background-color: burlywood;
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  padding: 10px;
+
+}
+
+.afterContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 200px;
+  align-items: center;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.31);
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.price {
+  padding-right: 10px;
+  text-align: end;
+}
+
+.container select {
+  width: 50px;
+  height: 30px;
+}
+
+.bin{
+  margin-top: 10px;
+  color: red;
+  cursor: pointer;
+}
