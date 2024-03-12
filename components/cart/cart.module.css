@@ -61,3 +61,40 @@
   border: none;
   border-radius: 5px;
 }
+
+@media only screen and (max-width: 850px){
+
+  .afterContainer{
+    gap: 40px;
+  }
+
+  .container{
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    font-size: small;
+  }
+
+}
+
+@media only screen and (max-width: 668px){
+
+  .afterContainer{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    
+  }
+
+  .price{
+    text-align: left;
+  }
+}
+
+@media only screen and (max-width: 463px){
+
+  .details{
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
