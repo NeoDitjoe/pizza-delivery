@@ -11,18 +11,7 @@ export default function Navbar() {
 
   const isHomePage = router.asPath === '/'
   const isAdmin = session?.user?.email?.admin
-
-  const username = session
-    && session
-      .user
-      .email
-      .username
-      .charAt(0)
-      .toUpperCase()
-    + session
-      .user
-      .email
-      .username.slice(1)
+  const user = session?.user?.email.email
 
   if (isAdmin) {
     return (
@@ -50,7 +39,8 @@ export default function Navbar() {
           {!session
             ? <Link href='/auth'>Sign In</Link>
             : <div>
-              <Link href={'/'}>Home</Link>
+              <Link href={'/'}>Home </Link>
+              <Link href={`/cart?me=${user}`}> Cart</Link>
               <button
                 className={style.signOut}
                 onClick={() => signOut()}
