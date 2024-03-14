@@ -3,6 +3,7 @@ import style from './cart.module.css'
 import EmptyCart from './empty-cart'
 import Image from 'next/image'
 import { RiDeleteBin2Line } from "react-icons/ri";
+import PostMethod from '@/util/postMethod';
 
 export default function Cart(props) {
   const { data } = props
@@ -16,13 +17,24 @@ export default function Cart(props) {
     )
   }
 
-  async function sendOrderHandler(e) {
+  function qtyHandler(e) {
     e.preventDefault()
-
     const formData = new FormData(e.target)
     const qty = formData.get('qty')
+  }
 
-    console.log(qty)
+  async function sendOrderHandler(){
+
+    
+    try {
+      const response = await PostMethod('/api/cart/place-order', data)
+
+      if( response.message === 'success'){
+        alert('success')
+      }
+    } catch (error) {
+      alert('error')
+    }
   }
 
   let totaPrice = []
@@ -69,7 +81,7 @@ export default function Cart(props) {
                     <p>Status: {item.status}</p>
                     <p>R {Number(item.price).toFixed(2)}</p>
 
-                    <form action='#' onSubmit={sendOrderHandler} >
+                    <form action='#' onSubmit={qtyHandler} >
                       <select name='qty'>
                         {
                           qty.map((no) => (
@@ -94,7 +106,9 @@ export default function Cart(props) {
       <div className={style.placeOrder}>
 
         <p>Total: R {totaPrice.reduce((a, b) => a + b, 0).toFixed(2)}</p>
-        <button>
+        <button
+          onClick={sendOrderHandler}
+        >
           Place Order
         </button>
       </div>
