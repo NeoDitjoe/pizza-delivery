@@ -34,6 +34,18 @@
   margin-top: -20px;
 }
 
+.viewButton {
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.viewButton:hover {
+  background-color: aliceblue;
+}
+
 .status {
   text-align: center;
 }
@@ -45,7 +57,7 @@
 }
 
 .button button {
-  padding: 13px;
+  padding: 8px;
   border-radius: 5px;
   border: 1px solid;
   margin: 5px;
@@ -70,6 +82,38 @@
   padding-left: 200px;
   padding-right: 200px;
   padding-top: 10px
+}
+
+.orderDetails {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 40px;
+  border-radius: 5px;
+}
+
+.orderDetails button {
+  width: 50px;
+  padding: 5px;
+  align-self: flex-end;
+  background: none;
+  border: none;
+}
+
+.address {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  box-shadow: 1px 1px 1px 1px rgba(128, 128, 128, 0.27);
+  margin: 10px;
+  padding: 10px;
+}
+
+.address div{
+  margin-top: -20px;
+}
+
+.address div p{
+  margin-top: -20px;
 }
 
 @media only screen and (max-width: 1254px) {
@@ -103,8 +147,19 @@
     padding-left: 10px;
   }
 
-  .cart{
+  .cart {
     display: flex;
     flex-direction: column;
   }
+
+  .address {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .address{
+    grid-template-columns: 1fr;
+  }
+
 }

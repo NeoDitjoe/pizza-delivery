@@ -3,13 +3,15 @@ import style from './cart.module.css'
 import EmptyCart from './empty-cart'
 import Image from 'next/image'
 import { RiDeleteBin2Line } from "react-icons/ri";
-import PostMethod from '@/util/postMethod';
+import Form from './form/form';
+import { Backdrop } from '@mui/material';
+import { useState } from 'react';
+import { IoCloseSharp } from "react-icons/io5";
 
 export default function Cart(props) {
   const { data } = props
   const router = useRouter()
-
-  console.log(data)
+  const [checkout, setCheckout] = useState(false)
 
   if (!data.length > 0) {
     return (
@@ -17,27 +19,14 @@ export default function Cart(props) {
     )
   }
 
+  let totaPrice = []
+
   function qtyHandler(e) {
     e.preventDefault()
     const formData = new FormData(e.target)
     const qty = formData.get('qty')
   }
 
-  async function sendOrderHandler(){
-
-    
-    try {
-      const response = await PostMethod('/api/cart/place-order', data)
-
-      if( response.message === 'success'){
-        alert('success')
-      }
-    } catch (error) {
-      alert('error')
-    }
-  }
-
-  let totaPrice = []
   let qty = []
 
   for (let i = 0; i < 10; i++) {
@@ -51,7 +40,7 @@ export default function Cart(props) {
         data?.map((item) => {
 
           totaPrice.push(Number(item.price))
-          
+
           return (
             <div className={style.container}>
               <div className={style.afterContainer}>
@@ -78,7 +67,6 @@ export default function Cart(props) {
 
                 <div className={style.price}>
                   <div>
-                    <p>Status: {item.status}</p>
                     <p>R {Number(item.price).toFixed(2)}</p>
 
                     <form action='#' onSubmit={qtyHandler} >
@@ -107,11 +95,32 @@ export default function Cart(props) {
 
         <p>Total: R {totaPrice.reduce((a, b) => a + b, 0).toFixed(2)}</p>
         <button
-          onClick={sendOrderHandler}
+          onClick={() => setCheckout(true)}
         >
-          Place Order
+          Proceed to Checkout
         </button>
       </div>
+
+      <Backdrop
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={checkout}
+      >
+        <div>
+          <button
+            className={style.closeForm}
+            onClick={() => setCheckout(false)}
+          >
+            <IoCloseSharp
+              size={30}
+            />
+          </button>
+
+          <Form totaPrice={totaPrice} data={data}/>
+        </div>
+
+      </Backdrop>
+
+      <script src="https://js.paystack.co/v1/inline.js"></script>
     </div>
   )
 }
