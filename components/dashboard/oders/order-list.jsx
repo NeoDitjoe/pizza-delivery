@@ -2,19 +2,13 @@ import stateContext from '@/util/context'
 import PostMethod from '@/util/postMethod'
 import { useState } from 'react'
 import style from './order.module.css'
-import { Backdrop } from '@mui/material'
-import OrderDetails from './order-details'
 import { useRouter } from 'next/router'
-import Address from './address'
-import { IoCloseSharp } from "react-icons/io5";
 
 export default function OrderList(props) {
 
-  const { orderList, orderDetails } = props
-  const { setAlert } = stateContext()
+  const { orderList } = props
+  const { setAlert, setAddress } = stateContext()
   const [disableButton, setDisableButton] = useState(false)
-  const [showOrder, setShowOrder] = useState(false)
-  const [address, setAddress] = useState(null)
   const router = useRouter()
 
   async function updateStatusHandler(email, uniqueId, status) {
@@ -46,8 +40,7 @@ export default function OrderList(props) {
                   <button
                     className={style.viewButton}
                     onClick={() => {
-                      router.push(`/dashboard/orders?id=${order.uniqueId}`)
-                      setShowOrder(true)
+                      router.push(`/dashboard/orders/details?id=${order.uniqueId}`)
                       setAddress(order)
                     }}
                   >View</button>
@@ -110,26 +103,6 @@ export default function OrderList(props) {
           )
         })
       }
-
-      <Backdrop
-        sx={{
-          overflowY: 'scroll'
-        }}
-        open={showOrder}
-      >
-
-        <div className={style.orderDetails}>
-          <button
-            onClick={() => {
-              setShowOrder(false)
-              router.push('/dashboard/orders')
-            }}
-          ><IoCloseSharp size={30}/> </button>
-          <Address address={address} />
-          <OrderDetails orderDetails={orderDetails} />
-        </div>
-
-      </Backdrop>
     </div>
   )
 }

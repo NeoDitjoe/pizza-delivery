@@ -33,6 +33,10 @@ export default function Address(props) {
             <h5>Postcode:</h5>
             <p>{item.postcode}</p>
           </div>
+          <div>
+            <h5>Payment-status</h5>
+            <p>{item.paymentStatus}</p>
+          </div>
         </div>
       ))}
     </div>

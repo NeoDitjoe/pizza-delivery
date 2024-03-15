@@ -11,10 +11,11 @@ export function ContextProvider(props){
   const { children } = props
   const [openOverlay, setOpenOverlay] = useState(false)
   const [alert, setAlert] = useState('')
+  const [address, setAddress] = useState(null)
 
   return(
     <Context.Provider 
-      value={{ alert, setAlert, openOverlay, setOpenOverlay }}
+      value={{ address, setAddress, alert, setAlert, openOverlay, setOpenOverlay }}
     >
       {children}
     </Context.Provider>

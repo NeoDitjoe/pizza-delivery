@@ -70,7 +70,7 @@ export default function Form(props) {
           city,
           state,
           postcode,
-          'payment status': 'success',
+          paymentStatus: 'successful',
           
         }
       ]

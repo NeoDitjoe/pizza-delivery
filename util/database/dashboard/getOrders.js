@@ -14,7 +14,6 @@ export default async function getOrders(uniqueId) {
     {$project: { _id: 0}}
   ]).toArray()
 
-
   return {
     orderDetails,
     orderId
