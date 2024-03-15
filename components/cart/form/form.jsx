@@ -3,11 +3,13 @@ import { MdLockOutline } from "react-icons/md";
 import PostMethod from '@/util/postMethod';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
+import stateContext from '@/util/context';
 
 export default function Form(props) {
 
   const { totaPrice, data } = props
   const router = useRouter()
+  const { setAlert } = stateContext()
 
   async function sendOrderHandler(e) {
     e.preventDefault()
@@ -18,7 +20,7 @@ export default function Form(props) {
       amount: totaPrice.reduce((a, b) => a + b, 0).toFixed(2) * 100,
       currency: 'ZAR',
       onClose: function () {
-        alert('Window closed.');
+        setAlert('Cancelled!');
       },
       callback: function (response) {
         let message = response.status;
@@ -45,24 +47,42 @@ export default function Form(props) {
     const order = []
     order.push(...modifiedOrder)
 
+    const formData = new FormData(e.target)
+    const name = formData.get('name')
+    const address = formData.get('address')
+    const suburb = formData.get('suburb')
+    const apartment = formData.get('apartment')
+    const city = formData.get('city')
+    const state = formData.get('state')
+    const postcode = formData.get('postcode')
+
     order.push({
       uniqueId: id,
       email: router.query.me,
       status: 'Order is sent',
-      get: true
+      get: true,
+      address: [
+        {
+          name,
+          address,
+          suburb,
+          apartment,
+          city,
+          state,
+          postcode
+        }
+      ]
     })
-
-
 
     async function placeOrder() {
       try {
         const response = await PostMethod('/api/cart/place-order', order)
 
         if (response.message === 'success') {
-          alert('success')
+          setAlert('Thank you for your order. check order status to track order')
         }
       } catch (error) {
-        alert('Something went wrong! please contact us on +27 00 000 0000')
+        setAlert('Something went wrong! please contact us on +27 00 000 0000')
       }
     }
 
@@ -74,12 +94,12 @@ export default function Form(props) {
     <div>
       <form className={style.form} onSubmit={sendOrderHandler}>
         <div className={style.inputs}>
-     
-          <input name="address" placeholder="full name" required />
-          <input name="address" placeholder="phone" type='number' required />
+
+          <input name="name" placeholder="full name" required />
+          <input name="phone" placeholder="phone" type='number' required />
           <input name="address" placeholder="Address" required />
-          <input name="apartment" placeholder="suburb/town" required />
-          <input name="apartment" placeholder="apartment number" reqired />
+          <input name="suburb" placeholder="suburb/town" required />
+          <input name="apartment" placeholder="apartment number" />
           <input name="city" placeholder="City" required />
           <input name="state" placeholder="State" required />
           <input name="postcode" placeholder="Postcode" required />
@@ -88,9 +108,7 @@ export default function Form(props) {
         <div className={style.placeOrder}>
 
           <p>Total: R {totaPrice?.reduce((a, b) => a + b, 0).toFixed(2)}</p>
-          <button
-            // onClick={() => /* sendOrderHandler */ setCheckout(true)}
-          >
+          <button>
             Checkout
           </button>
           <div className={style.secure}>
