@@ -4,6 +4,7 @@ import EmptyCart from './empty-cart'
 import Image from 'next/image'
 import { RiDeleteBin2Line } from "react-icons/ri";
 import PostMethod from '@/util/postMethod';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Cart(props) {
   const { data } = props
@@ -26,7 +27,7 @@ export default function Cart(props) {
   async function sendOrderHandler() {
 
     let handler = PaystackPop.setup({
-      key: process.env.PAYMENT_KEY,
+      key: 'pk_test_522f7a6ef26ce82e8334520170b5dc448bffc012',
       email: router.query.me,
       amount: totaPrice.reduce((a, b) => a + b, 0).toFixed(2) * 100,
       currency: 'ZAR',
@@ -44,9 +45,32 @@ export default function Cart(props) {
 
     handler.openIframe();
 
+    const id = uuidv4()
+
+    function addId(arr) {
+      for (let item of arr) {
+        item.uniqueId = id;
+      }
+      return arr;
+    }
+    
+    const modifiedOrder = addId(data);
+
+    const order = []
+    order.push(...modifiedOrder)
+
+    order.push({
+      uniqueId: id, 
+      email: router.query.me, 
+      status: 'Order is sent',
+      get: true 
+    })
+    
+
+
     async function placeOrder() {
       try {
-        const response = await PostMethod('/api/cart/place-order', data)
+        const response = await PostMethod('/api/cart/place-order', order)
   
         if( response.message === 'success'){
           alert('success')
@@ -99,7 +123,6 @@ export default function Cart(props) {
 
                 <div className={style.price}>
                   <div>
-                    <p>Status: {item.status}</p>
                     <p>R {Number(item.price).toFixed(2)}</p>
 
                     <form action='#' onSubmit={qtyHandler} >

@@ -4,9 +4,18 @@ export default async function getOrders() {
 
   const db = client.db('dashboard')
 
-  const orders = await db.collection('orders').aggregate([
+  const orderId = await db.collection('orders').aggregate([
+    {$match: {get: true}},
     {$project: { _id: 0}}
   ]).toArray()
 
-  return orders
+  const orderDetails = await db.collection('orders').aggregate([
+    {$project: { _id: 0}}
+  ]).toArray()
+
+
+  return {
+    orderDetails,
+    orderId
+  }
 }

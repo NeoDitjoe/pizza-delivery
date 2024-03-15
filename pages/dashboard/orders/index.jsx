@@ -3,17 +3,20 @@ import getOrders from "@/util/database/dashboard/getOrders";
 import style from '../../../components/dashboard/oders/order.module.css'
 
 import DashboardLayout from "@/components/dashboard/layout";
+import OrderList from "@/components/dashboard/oders/orderList";
 
 export default function OrdersPage(props) {
 
-  const { ordersData } = props
+  const { orderId } = props
 
   return (
     <DashboardLayout>
       <div className={style.page}>
-        <Orders
-          orders={ordersData}
-        />
+        {/* <Orders
+          orders={orderDetails}
+        /> */}
+
+        <OrderList orderList={orderId} />
 
       </div>
     </DashboardLayout>
@@ -22,11 +25,11 @@ export default function OrdersPage(props) {
 
 export async function getServerSideProps() {
 
-  const ordersData = await getOrders()
+  const { orderDetails, orderId} = await getOrders()
 
   return {
     props: {
-      ordersData
+      orderId
     }
   }
 }

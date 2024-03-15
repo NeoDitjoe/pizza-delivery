@@ -52,7 +52,7 @@ export default function Orders(props) {
 
                       <div>
                         <p className={style.heading}>Veggies</p>
-                        <p>{order.veggies.join(', ')}</p>
+                        <p>{order.veggies?.join(', ')}</p>
                       </div>
                     </div>
                   </div>
