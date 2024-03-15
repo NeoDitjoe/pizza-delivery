@@ -3,16 +3,15 @@ import style from './cart.module.css'
 import EmptyCart from './empty-cart'
 import Image from 'next/image'
 import { RiDeleteBin2Line } from "react-icons/ri";
-import PostMethod from '@/util/postMethod';
-import { v4 as uuidv4 } from 'uuid';
 import Form from './form/form';
 import { Backdrop } from '@mui/material';
 import { useState } from 'react';
+import { IoCloseSharp } from "react-icons/io5";
 
 export default function Cart(props) {
   const { data } = props
   const router = useRouter()
-  const [ checkout, setCheckout ] = useState(false)
+  const [checkout, setCheckout] = useState(false)
 
   if (!data.length > 0) {
     return (
@@ -26,65 +25,6 @@ export default function Cart(props) {
     e.preventDefault()
     const formData = new FormData(e.target)
     const qty = formData.get('qty')
-  }
-
-  async function sendOrderHandler() {
-
-    let handler = PaystackPop.setup({
-      key: 'pk_test_522f7a6ef26ce82e8334520170b5dc448bffc012',
-      email: router.query.me,
-      amount: totaPrice.reduce((a, b) => a + b, 0).toFixed(2) * 100,
-      currency: 'ZAR',
-      onClose: function () {
-        alert('Window closed.');
-      },
-      callback: function (response) {
-        let message = response.status;
-
-        if(message === 'success'){
-          placeOrder()
-        }
-      }
-    });
-
-    handler.openIframe();
-
-    const id = uuidv4()
-
-    function addId(arr) {
-      for (let item of arr) {
-        item.uniqueId = id;
-      }
-      return arr;
-    }
-    
-    const modifiedOrder = addId(data);
-
-    const order = []
-    order.push(...modifiedOrder)
-
-    order.push({
-      uniqueId: id, 
-      email: router.query.me, 
-      status: 'Order is sent',
-      get: true 
-    })
-    
-
-
-    async function placeOrder() {
-      try {
-        const response = await PostMethod('/api/cart/place-order', order)
-  
-        if( response.message === 'success'){
-          alert('success')
-        }
-      } catch (error) {
-        alert('Something went wrong! please contact us on +27 00 000 0000')
-      }
-    }
-
-
   }
 
   let qty = []
@@ -155,19 +95,31 @@ export default function Cart(props) {
 
         <p>Total: R {totaPrice.reduce((a, b) => a + b, 0).toFixed(2)}</p>
         <button
-          onClick={() => /* sendOrderHandler */ setCheckout(true)}
+          onClick={() => setCheckout(true)}
         >
           Proceed to Checkout
         </button>
       </div>
+
       <Backdrop
-      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={checkout}
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={checkout}
       >
-        <button onClick={() => setCheckout(false)}>X</button>
-      <Form totaPrice={totaPrice} />
-      
-    </Backdrop>
+        <div>
+          <button
+            className={style.closeForm}
+            onClick={() => setCheckout(false)}
+          >
+            <IoCloseSharp
+              size={30}
+            />
+          </button>
+
+          <Form totaPrice={totaPrice} data={data}/>
+        </div>
+
+      </Backdrop>
+
       <script src="https://js.paystack.co/v1/inline.js"></script>
     </div>
   )
