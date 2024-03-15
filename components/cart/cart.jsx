@@ -5,10 +5,14 @@ import Image from 'next/image'
 import { RiDeleteBin2Line } from "react-icons/ri";
 import PostMethod from '@/util/postMethod';
 import { v4 as uuidv4 } from 'uuid';
+import Form from './form/form';
+import { Backdrop } from '@mui/material';
+import { useState } from 'react';
 
 export default function Cart(props) {
   const { data } = props
   const router = useRouter()
+  const [ checkout, setCheckout ] = useState(false)
 
   if (!data.length > 0) {
     return (
@@ -151,11 +155,19 @@ export default function Cart(props) {
 
         <p>Total: R {totaPrice.reduce((a, b) => a + b, 0).toFixed(2)}</p>
         <button
-          onClick={sendOrderHandler}
+          onClick={() => /* sendOrderHandler */ setCheckout(true)}
         >
-          Place Order
+          Proceed to Checkout
         </button>
       </div>
+      <Backdrop
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={checkout}
+      >
+        <button onClick={() => setCheckout(false)}>X</button>
+      <Form totaPrice={totaPrice} />
+      
+    </Backdrop>
       <script src="https://js.paystack.co/v1/inline.js"></script>
     </div>
   )
