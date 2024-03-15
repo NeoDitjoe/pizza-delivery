@@ -11,7 +11,7 @@ export default function Order(props) {
   return (
     <DashboardLayout>
       <div className={style.page}>
-        <Address  />
+        <Address />
         <h4>Ordered</h4>
         <OrderDetails orderDetails={orderDetails} />
       </div>

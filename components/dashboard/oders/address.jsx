@@ -5,6 +5,10 @@ export default function Address() {
   let getAddress = localStorage.getItem("address")
   let address = JSON.parse(getAddress);
 
+  if(!address?.address){
+    return <h4 style={{ textAlign: 'center'}}>Pay and Collect</h4>
+  }
+
   return (
     <div>
       <h4>Delivery address</h4>
