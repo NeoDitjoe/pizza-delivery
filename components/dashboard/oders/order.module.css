@@ -34,6 +34,18 @@
   margin-top: -20px;
 }
 
+.viewButton{
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.viewButton:hover{
+  background-color: aliceblue;
+}
+
 .status {
   text-align: center;
 }
@@ -45,7 +57,7 @@
 }
 
 .button button {
-  padding: 13px;
+  padding: 8px;
   border-radius: 5px;
   border: 1px solid;
   margin: 5px;

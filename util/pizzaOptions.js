@@ -72,6 +72,7 @@ export function selectedPizza(session, router, selectedSauce, selectedCheese, se
     cheese: selectedCheese,
     veggies: getSelectedVeggies,
     base: router.query.pizzas,
+    get: false
   }
 
   return selectedItem

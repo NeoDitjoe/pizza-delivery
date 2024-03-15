@@ -2,12 +2,17 @@ import stateContext from '@/util/context'
 import PostMethod from '@/util/postMethod'
 import { useState } from 'react'
 import style from './order.module.css'
+import { Backdrop } from '@mui/material'
+import OrderDetails from './order-details'
+import { useRouter } from 'next/router'
 
 export default function OrderList(props) {
 
-  const { orderList } = props
+  const { orderList, orderDetails } = props
   const { setAlert } = stateContext()
   const [disableButton, setDisableButton] = useState(false)
+  const [showOrder, setShowOrder] = useState(false)
+  const router = useRouter()
 
   async function updateStatusHandler(email, uniqueId, status) {
 
@@ -33,7 +38,16 @@ export default function OrderList(props) {
           return (
             <div className={style.order}>
               <div>
-                <h5>{order.email}</h5>
+                <div>
+                  <h5>{order.email}</h5>
+                  <button 
+                    className={style.viewButton}
+                    onClick={() =>  {
+                      router.push(`/dashboard/orders?id=${order.uniqueId}`)
+                      setShowOrder(true)
+                    }}
+                  >View</button>
+                </div>
                 <div className={style.cart}>
                   <div>
                     <div>
@@ -92,6 +106,20 @@ export default function OrderList(props) {
           )
         })
       }
+
+      <Backdrop 
+        sx={{  
+        zIndex: (theme) => theme.zIndex.drawer + 1, 
+        background: 'white'
+      }}
+        open={showOrder}
+      >
+        <button 
+          onClick={() => setShowOrder(false)}
+        >X</button>
+        <OrderDetails orderDetails={orderDetails} />
+        
+      </Backdrop>
     </div>
   )
 }
