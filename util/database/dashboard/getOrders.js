@@ -2,15 +2,11 @@ import client from "../connectClient";
 
 export default async function getOrders() {
 
-  const db = client.db('user')
+  const db = client.db('dashboard')
 
-  const orders = await db.collection('cart').aggregate([]).toArray()
+  const orders = await db.collection('orders').aggregate([
+    {$project: { _id: 0}}
+  ]).toArray()
 
-  const idToString = orders.map((order) => {
-    const id = order._id.toString()
-
-    return {...order, _id: id}
-  })
-
-  return idToString
+  return orders
 }

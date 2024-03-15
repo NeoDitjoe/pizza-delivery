@@ -9,13 +9,13 @@ export default function Cart(props) {
   const { data } = props
   const router = useRouter()
 
-  console.log(data)
-
   if (!data.length > 0) {
     return (
       <EmptyCart />
     )
   }
+
+  let totaPrice = []
 
   function qtyHandler(e) {
     e.preventDefault()
@@ -23,21 +23,42 @@ export default function Cart(props) {
     const qty = formData.get('qty')
   }
 
-  async function sendOrderHandler(){
+  async function sendOrderHandler() {
 
-    
-    try {
-      const response = await PostMethod('/api/cart/place-order', data)
+    let handler = PaystackPop.setup({
+      key: process.env.PAYMENT_KEY,
+      email: router.query.me,
+      amount: totaPrice.reduce((a, b) => a + b, 0).toFixed(2) * 100,
+      currency: 'ZAR',
+      onClose: function () {
+        alert('Window closed.');
+      },
+      callback: function (response) {
+        let message = response.status;
 
-      if( response.message === 'success'){
-        alert('success')
+        if(message === 'success'){
+          placeOrder()
+        }
       }
-    } catch (error) {
-      alert('error')
+    });
+
+    handler.openIframe();
+
+    async function placeOrder() {
+      try {
+        const response = await PostMethod('/api/cart/place-order', data)
+  
+        if( response.message === 'success'){
+          alert('success')
+        }
+      } catch (error) {
+        alert('Something went wrong! please contact us on +27 00 000 0000')
+      }
     }
+
+
   }
 
-  let totaPrice = []
   let qty = []
 
   for (let i = 0; i < 10; i++) {
@@ -51,7 +72,7 @@ export default function Cart(props) {
         data?.map((item) => {
 
           totaPrice.push(Number(item.price))
-          
+
           return (
             <div className={style.container}>
               <div className={style.afterContainer}>
@@ -112,6 +133,7 @@ export default function Cart(props) {
           Place Order
         </button>
       </div>
+      <script src="https://js.paystack.co/v1/inline.js"></script>
     </div>
   )
 }
