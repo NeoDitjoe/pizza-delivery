@@ -69,7 +69,9 @@ export default function Form(props) {
           apartment,
           city,
           state,
-          postcode
+          postcode,
+          'payment status': 'success',
+          
         }
       ]
     })

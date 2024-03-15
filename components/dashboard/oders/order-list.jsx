@@ -5,6 +5,8 @@ import style from './order.module.css'
 import { Backdrop } from '@mui/material'
 import OrderDetails from './order-details'
 import { useRouter } from 'next/router'
+import Address from './address'
+import { IoCloseSharp } from "react-icons/io5";
 
 export default function OrderList(props) {
 
@@ -12,6 +14,7 @@ export default function OrderList(props) {
   const { setAlert } = stateContext()
   const [disableButton, setDisableButton] = useState(false)
   const [showOrder, setShowOrder] = useState(false)
+  const [address, setAddress] = useState(null)
   const router = useRouter()
 
   async function updateStatusHandler(email, uniqueId, status) {
@@ -22,7 +25,7 @@ export default function OrderList(props) {
 
       if (response.message === 'success') {
         setAlert('Customer status is updated!')
-        setDisableButton(false) 
+        setDisableButton(false)
       }
 
     } catch (error) {
@@ -40,11 +43,12 @@ export default function OrderList(props) {
               <div>
                 <div>
                   <h5>{order.email}</h5>
-                  <button 
+                  <button
                     className={style.viewButton}
-                    onClick={() =>  {
+                    onClick={() => {
                       router.push(`/dashboard/orders?id=${order.uniqueId}`)
                       setShowOrder(true)
+                      setAddress(order)
                     }}
                   >View</button>
                 </div>
@@ -107,21 +111,24 @@ export default function OrderList(props) {
         })
       }
 
-      <Backdrop 
-        sx={{  
-        zIndex: (theme) => theme.zIndex.drawer + 1, 
-        background: 'white'
-      }}
+      <Backdrop
+        sx={{
+          overflowY: 'scroll'
+        }}
         open={showOrder}
       >
-        <button 
-          onClick={() => {
-            setShowOrder(false)
-            router.push('/dashboard/orders')
-          }}
-        >X</button>
-        <OrderDetails orderDetails={orderDetails} />
-        
+
+        <div className={style.orderDetails}>
+          <button
+            onClick={() => {
+              setShowOrder(false)
+              router.push('/dashboard/orders')
+            }}
+          ><IoCloseSharp size={30}/> </button>
+          <Address address={address} />
+          <OrderDetails orderDetails={orderDetails} />
+        </div>
+
       </Backdrop>
     </div>
   )

@@ -83,6 +83,29 @@
   padding-right: 200px;
   padding-top: 10px
 }
+.orderDetails{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 40px;
+  border-radius: 5px;
+}
+
+.orderDetails button{
+  width: 50px;
+  padding: 5px;
+  align-self: flex-end;
+  background: none;
+  border: none;
+}
+
+.address{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  box-shadow: 1px 1px 1px 1px rgba(128, 128, 128, 0.27);
+  margin: 10px;
+  padding: 10px;
+}
 
 @media only screen and (max-width: 1254px) {
   .page {
