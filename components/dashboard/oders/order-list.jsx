@@ -22,7 +22,7 @@ export default function OrderList(props) {
 
       if (response.message === 'success') {
         setAlert('Customer status is updated!')
-        setDisableButton(false)
+        setDisableButton(false) 
       }
 
     } catch (error) {
@@ -115,7 +115,10 @@ export default function OrderList(props) {
         open={showOrder}
       >
         <button 
-          onClick={() => setShowOrder(false)}
+          onClick={() => {
+            setShowOrder(false)
+            router.push('/dashboard/orders')
+          }}
         >X</button>
         <OrderDetails orderDetails={orderDetails} />
         
