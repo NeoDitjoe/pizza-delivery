@@ -70,7 +70,10 @@ export default function OrderList(props) {
                           || order.status === 'Order is On The Way'
                         }
                         className={style.recieved}
-                        onClick={() => updateStatusHandler(order.email, order.uniqueId, 'Order has been recieved')}
+                        onClick={() => {
+                          updateStatusHandler(order.email, order.uniqueId, 'Order has been recieved')
+                          router.reload()
+                        }}
                       >Recieved
                       </button>
 
@@ -80,7 +83,10 @@ export default function OrderList(props) {
                           || order.status === 'Order is in the Kitchen'
                           || order.status === 'Order is On The Way'
                         }
-                        onClick={() => updateStatusHandler(order.email, order.uniqueId, 'Order is in the Kitchen')}
+                        onClick={() =>  { 
+                          updateStatusHandler(order.email, order.uniqueId, 'Order is in the Kitchen')
+                          router.reload()
+                        }}
                         className={style.inKitchen}
                       >In Kitchen
                       </button>
@@ -90,7 +96,10 @@ export default function OrderList(props) {
                           disableButton
                           || order.status === 'Order is On The Way'
                         }
-                        onClick={() => updateStatusHandler(order.email, order.uniqueId, 'Order is On The Way')}
+                        onClick={() => {
+                          updateStatusHandler(order.email, order.uniqueId, 'Order is On The Way')
+                          router.reload()
+                        }}
                         className={style.onTheWay}
                       >On The Way
                       </button>
