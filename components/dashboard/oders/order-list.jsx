@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 export default function OrderList(props) {
 
   const { orderList } = props
-  const { setAlert, setAddress } = stateContext()
+  const { setAlert } = stateContext()
   const [disableButton, setDisableButton] = useState(false)
   const router = useRouter()
 
@@ -41,7 +41,8 @@ export default function OrderList(props) {
                     className={style.viewButton}
                     onClick={() => {
                       router.push(`/dashboard/orders/details?id=${order.uniqueId}`)
-                      setAddress(order)
+                      let address = JSON.stringify(order)
+                      localStorage.setItem("address", address)
                     }}
                   >View</button>
                 </div>

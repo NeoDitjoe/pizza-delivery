@@ -1,8 +1,9 @@
 import style from './order.module.css'
 
-export default function Address(props) {
+export default function Address() {
 
-  const { address } = props
+  let getAddress = localStorage.getItem("address")
+  let address = JSON.parse(getAddress);
 
   return (
     <div>
