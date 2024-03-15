@@ -34,7 +34,7 @@
   margin-top: -20px;
 }
 
-.viewButton{
+.viewButton {
   background-color: transparent;
   border-radius: 5px;
   border: 1px solid;
@@ -42,7 +42,7 @@
   cursor: pointer;
 }
 
-.viewButton:hover{
+.viewButton:hover {
   background-color: aliceblue;
 }
 
@@ -83,7 +83,8 @@
   padding-right: 200px;
   padding-top: 10px
 }
-.orderDetails{
+
+.orderDetails {
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -91,7 +92,7 @@
   border-radius: 5px;
 }
 
-.orderDetails button{
+.orderDetails button {
   width: 50px;
   padding: 5px;
   align-self: flex-end;
@@ -99,12 +100,20 @@
   border: none;
 }
 
-.address{
+.address {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   box-shadow: 1px 1px 1px 1px rgba(128, 128, 128, 0.27);
   margin: 10px;
   padding: 10px;
+}
+
+.address div{
+  margin-top: -20px;
+}
+
+.address div p{
+  margin-top: -20px;
 }
 
 @media only screen and (max-width: 1254px) {
@@ -138,8 +147,19 @@
     padding-left: 10px;
   }
 
-  .cart{
+  .cart {
     display: flex;
     flex-direction: column;
   }
+
+  .address {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .address{
+    grid-template-columns: 1fr;
+  }
+
 }
