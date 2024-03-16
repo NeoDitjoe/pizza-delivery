@@ -17,9 +17,10 @@
 .afterContainer {
   display: flex;
   flex-direction: row;
-  gap: 100px;
+  justify-content: space-between;
   align-items: center;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.31);
+  padding-right: 20px;
 }
 
 .details {
@@ -41,7 +42,6 @@
 .bin{
   margin-top: 10px;
   color: red;
-  cursor: pointer;
   background: none;
   border: none;
   padding: 5px;

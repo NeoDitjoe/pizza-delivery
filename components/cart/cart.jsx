@@ -8,12 +8,15 @@ import { useRef, useState } from 'react';
 import { IoCloseSharp } from "react-icons/io5";
 import PostMethod from '@/util/postMethod';
 import stateContext from '@/util/context';
+import deleteMethod from '@/util/deleteMethod';
+import { useRouter } from 'next/router';
 
 export default function Cart(props) {
   const { data } = props
+  const router =  useRouter()
+
   const qtyRef = useRef()
   const { setAlert } = stateContext()
-
   const [checkout, setCheckout] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -29,6 +32,17 @@ export default function Cart(props) {
 
   for (let i = 0; i < 10; i++) {
     qty.push(i)
+  }
+  
+  async function removeItem(itemId){
+    setAlert('Removing Item')
+
+    try {
+      await deleteMethod(`/api/cart/remove-item?itemId=${itemId}`)
+      router.reload()
+    } catch (error) {
+      setAlert(error.message)
+    }
   }
 
   return (
@@ -72,7 +86,7 @@ export default function Cart(props) {
                       ref={qtyRef}
                       disabled={loading}
                       onChange={async (e) => {
-                        // const qty = qtyRef.current.value
+
                         setLoading(true)
                         try {
                           const response = await PostMethod('/api/cart/update-qty',
@@ -101,7 +115,11 @@ export default function Cart(props) {
                   </div>
 
                   <button className={style.bin}>
-                    <RiDeleteBin2Line />
+                    <RiDeleteBin2Line 
+                      size={20}
+                      onClick={() => removeItem(item.id)}
+                      cursor={'pointer'}
+                    />
                   </button>
                 </div>
 
