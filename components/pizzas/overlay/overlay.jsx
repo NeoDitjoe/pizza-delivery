@@ -25,6 +25,7 @@ export default function Overlay() {
   async function addToCartHandler(){
     if(!session){
       setAlert('please login to add to cart')
+      router.push('/auth')
       return
     }
     
@@ -36,8 +37,6 @@ export default function Overlay() {
       setLoadingButton(true)
       const response = await PostMethod('/api/cart/add-to-cart', cartItems)
 
-  
-      
       if(response.message === 'success'){
         setAlert('added to cart')
         setLoadingButton(false)
