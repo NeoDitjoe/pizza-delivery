@@ -7,11 +7,15 @@ import { Backdrop } from '@mui/material';
 import { useRef, useState } from 'react';
 import { IoCloseSharp } from "react-icons/io5";
 import PostMethod from '@/util/postMethod';
+import stateContext from '@/util/context';
 
 export default function Cart(props) {
   const { data } = props
   const qtyRef = useRef()
+  const { setAlert } = stateContext()
+
   const [checkout, setCheckout] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   if (!data.length > 0) {
     return (
@@ -64,19 +68,29 @@ export default function Cart(props) {
                   <div>
                     <p>R {Number(priceUpdate).toFixed(2)}</p>
 
-                    <form action='#' onChange={async () => {
+                    <form onChange={async () => {
                       const qty = qtyRef.current.value
-                      await PostMethod('/api/cart/update-qty',
-                        {
-                          id: item.id, price: Number(item.originalPrice) * qty
-                        })
-                      setPriceUpdate(Number(item.originalPrice) * qty)
+                      setLoading(true)
+                      try {
+                        const response = await PostMethod('/api/cart/update-qty',
+                          {
+                            id: item.id, price: Number(item.originalPrice) * qty
+                          })
+
+                        if (response.message === 'success') {
+                          setPriceUpdate(Number(item.originalPrice) * qty)
+                          setLoading(false)
+                        }
+                      } catch (error) {
+                        setAlert('failed!')
+                        setLoading(false)
+                      }
                     }} >
-                      <select ref={qtyRef}>
-                        <option>{item.price / item.originalPrice}</option>
+                      <select ref={qtyRef} disabled={loading}>
+                        <option>{Number(item.price) / Number(item.originalPrice)}</option>
                         {
                           qty.map((no) => (
-                            <option>{no + 1}</option>
+                            <option>{Number(no) + 1}</option>
                           ))
                         }
                       </select>
