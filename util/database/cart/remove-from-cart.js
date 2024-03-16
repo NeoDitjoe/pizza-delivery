@@ -8,3 +8,10 @@ export default async function deleteItem(id) {
     {id}
   )
 }
+
+export async function deleteAll(user) {
+
+  await db.collection('cart').deleteMany(
+    {user}
+  )
+}
