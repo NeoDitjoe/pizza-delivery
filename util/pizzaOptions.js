@@ -67,6 +67,7 @@ export function selectedPizza(session, router, selectedSauce, selectedCheese, se
     toppings : router.query.toppings && router.query.toppings.replaceAll('-', ', '),
     image: router.query.image && router.query.image,
     size: router.query.size && router.query.size.split('-')[0],
+    originalPrice: router.query.size && router.query.size.split('-')[1],
     price: router.query.size && router.query.size.split('-')[1],
     sauce: selectedSauce,
     cheese: selectedCheese,
