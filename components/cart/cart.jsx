@@ -21,12 +21,6 @@ export default function Cart(props) {
 
   let totaPrice = []
 
-  // async function qtyHandler(id, price) {
-
-  //   const qty = qtyRef.current.value
-  //   await PostMethod('/api/cart/update-qty', {id: id , price: Number(price) * qty})
-  // }
-
   let qty = []
 
   for (let i = 0; i < 10; i++) {
