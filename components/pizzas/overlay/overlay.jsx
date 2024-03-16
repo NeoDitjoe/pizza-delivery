@@ -40,6 +40,7 @@ export default function Overlay() {
       if(response.message === 'success'){
         setAlert('added to cart')
         setLoadingButton(false)
+        setOpenOverlay(false)
         
         await PostMethod('/api/dashboard/updateQty', {base: router.query.pizzas, 
           cheese: selectedCheese, sauce: selectedSauce, veggies: selectedVeggies})
