@@ -68,10 +68,17 @@
   display: flex;
 }
 
+@media only screen and (min-width: 866px){
+  .afterContainer{
+    min-width: 45em;
+  }
+}
+
 @media only screen and (max-width: 850px){
 
   .afterContainer{
     gap: 40px;
+    
   }
 
   .container{
