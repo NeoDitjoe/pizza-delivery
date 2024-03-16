@@ -68,34 +68,36 @@ export default function Cart(props) {
                   <div>
                     <p>R {Number(priceUpdate).toFixed(2)}</p>
 
-                    <form onChange={async () => {
-                      const qty = qtyRef.current.value
-                      setLoading(true)
-                      try {
-                        const response = await PostMethod('/api/cart/update-qty',
-                          {
-                            id: item.id, price: Number(item.originalPrice) * qty
-                          })
+                    <select
+                      ref={qtyRef}
+                      disabled={loading}
+                      onChange={async (e) => {
+                        // const qty = qtyRef.current.value
+                        setLoading(true)
+                        try {
+                          const response = await PostMethod('/api/cart/update-qty',
+                            {
+                              id: item.id, price: Number(item.originalPrice) * Number(e.target.value)
+                            })
 
-                        if (response.message === 'success') {
-                          setPriceUpdate(Number(item.originalPrice) * qty)
+                          if (response.message === 'success') {
+                            setPriceUpdate(Number(item.originalPrice) * Number(e.target.value))
+                            setLoading(false)
+                          }
+                        } catch (error) {
+                          setAlert('failed!')
                           setLoading(false)
                         }
-                      } catch (error) {
-                        setAlert('failed!')
-                        setLoading(false)
-                      }
-                    }} >
-                      <select ref={qtyRef} disabled={loading}>
-                        <option>{Number(item.price) / Number(item.originalPrice)}</option>
-                        {
-                          qty.map((no) => (
-                            <option>{Number(no) + 1}</option>
-                          ))
-                        }
-                      </select>
+                      }}
 
-                    </form>
+                    >
+                      <option>{Number(item.price) / Number(item.originalPrice)}</option>
+                      {
+                        qty.map((no) => (
+                          <option>{Number(no) + 1}</option>
+                        ))
+                      }
+                    </select>
                   </div>
 
                   <button className={style.bin}>
