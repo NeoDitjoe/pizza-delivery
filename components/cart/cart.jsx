@@ -1,16 +1,16 @@
-import { useRouter } from 'next/router'
 import style from './cart.module.css'
 import EmptyCart from './empty-cart'
 import Image from 'next/image'
 import { RiDeleteBin2Line } from "react-icons/ri";
 import Form from './form/form';
 import { Backdrop } from '@mui/material';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { IoCloseSharp } from "react-icons/io5";
+import PostMethod from '@/util/postMethod';
 
 export default function Cart(props) {
   const { data } = props
-  const router = useRouter()
+  const qtyRef = useRef()
   const [checkout, setCheckout] = useState(false)
 
   if (!data.length > 0) {
@@ -21,11 +21,11 @@ export default function Cart(props) {
 
   let totaPrice = []
 
-  function qtyHandler(e) {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const qty = formData.get('qty')
-  }
+  // async function qtyHandler(id, price) {
+
+  //   const qty = qtyRef.current.value
+  //   await PostMethod('/api/cart/update-qty', {id: id , price: Number(price) * qty})
+  // }
 
   let qty = []
 
@@ -40,6 +40,7 @@ export default function Cart(props) {
         data?.map((item) => {
 
           totaPrice.push(Number(item.price))
+          const [priceUpdate, setPriceUpdate] = useState(item.price)
 
           return (
             <div className={style.container}>
@@ -67,10 +68,18 @@ export default function Cart(props) {
 
                 <div className={style.price}>
                   <div>
-                    <p>R {Number(item.price).toFixed(2)}</p>
+                    <p>R {Number(priceUpdate).toFixed(2)}</p>
 
-                    <form action='#' onSubmit={qtyHandler} >
-                      <select name='qty'>
+                    <form action='#' onChange={async () => {
+                      const qty = qtyRef.current.value
+                      await PostMethod('/api/cart/update-qty',
+                        {
+                          id: item.id, price: Number(item.originalPrice) * qty
+                        })
+                      setPriceUpdate(Number(item.originalPrice) * qty)
+                    }} >
+                      <select ref={qtyRef}>
+                        <option>{item.price / item.originalPrice}</option>
                         {
                           qty.map((no) => (
                             <option>{no + 1}</option>
@@ -115,7 +124,7 @@ export default function Cart(props) {
             />
           </button>
 
-          <Form totaPrice={totaPrice} data={data}/>
+          <Form totaPrice={totaPrice} data={data} />
         </div>
 
       </Backdrop>
