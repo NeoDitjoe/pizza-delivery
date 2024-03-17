@@ -1,4 +1,4 @@
-.signOut {
+.button {
   width: 90px;
   padding: 12px;
   border-radius: 5px;
@@ -10,6 +10,33 @@
 
 }
 
-.main{
-  padding: 15px;
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  padding-left: 200px;
+  padding-right: 200px;
+  padding-top: 10px
+}
+
+@media only screen and (max-width: 1254px) {
+  .main {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+@media only screen and (max-width: 1025px) {
+  .main {
+    padding-left: 30px;
+    padding-right: 50px;
+  }
+}
+
+@media only screen and (max-width: 910px) {
+  .main {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }

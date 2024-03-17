@@ -41,10 +41,7 @@ export default function Navbar() {
             : <div>
               <Link href={'/'}>Home </Link>
               <Link href={`/cart?me=${user}`}> Cart</Link>
-              <button
-                className={style.signOut}
-                onClick={() => signOut()}
-              >Sign-Out</button>
+              <Link href={`/profile?me=${user}`}> Profile</Link>
             </div>
           }
         </navbar>

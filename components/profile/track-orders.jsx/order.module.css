@@ -1,0 +1,11 @@
+
+.order,
+.cart{
+  padding: 20px;
+  box-shadow: 1px 1px 1px 1px rgba(128, 128, 128, 0.46);
+  margin: 10px;
+}
+
+.cart p{
+  margin-top:  -20px;
+}

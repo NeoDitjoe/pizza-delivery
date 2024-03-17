@@ -18,8 +18,18 @@ export default function DashboardLayout(props) {
     }
   })
 
+  
   if(status === 'loading'){
     return <CircularProgress />
+  }
+
+  if(!session){
+    router.push('/')
+    return ''
+  }
+
+  if(session && !isAdmin){
+    return ''
   }
 
   return <div>{children}</div>
