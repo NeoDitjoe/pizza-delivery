@@ -4,6 +4,7 @@ import PostMethod from '@/util/postMethod';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import stateContext from '@/util/context';
+import deleteMethod from '@/util/deleteMethod';
 
 export default function Form(props) {
 
@@ -27,6 +28,8 @@ export default function Form(props) {
 
         if (message === 'success') {
           placeOrder()
+          deleteItems()
+          router.push('/')
         }
       }
     });
@@ -88,8 +91,15 @@ export default function Form(props) {
       }
     }
 
-  }
+    async function deleteItems(){
+      try {
+        await deleteMethod(`/api/cart/place-order?customerEmail=${router?.query?.me}`)
+      } catch (error) {
+        setAlert(error.message)
+      }
+    }
 
+  }
 
   return (
 

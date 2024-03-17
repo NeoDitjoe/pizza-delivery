@@ -17,9 +17,10 @@
 .afterContainer {
   display: flex;
   flex-direction: row;
-  gap: 100px;
+  justify-content: space-between;
   align-items: center;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.31);
+  padding-right: 20px;
 }
 
 .details {
@@ -41,7 +42,6 @@
 .bin{
   margin-top: 10px;
   color: red;
-  cursor: pointer;
   background: none;
   border: none;
   padding: 5px;
@@ -61,6 +61,7 @@
   border: none;
   border-radius: 2px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .closeForm{
@@ -68,10 +69,17 @@
   display: flex;
 }
 
+@media only screen and (min-width: 866px){
+  .afterContainer{
+    min-width: 45em;
+  }
+}
+
 @media only screen and (max-width: 850px){
 
   .afterContainer{
     gap: 40px;
+    
   }
 
   .container{
