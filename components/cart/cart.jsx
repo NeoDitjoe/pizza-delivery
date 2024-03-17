@@ -10,10 +10,11 @@ import PostMethod from '@/util/postMethod';
 import stateContext from '@/util/context';
 import deleteMethod from '@/util/deleteMethod';
 import { useRouter } from 'next/router';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Cart(props) {
   const { data } = props
-  const router =  useRouter()
+  const router = useRouter()
 
   const qtyRef = useRef()
   const { setAlert } = stateContext()
@@ -33,8 +34,8 @@ export default function Cart(props) {
   for (let i = 0; i < 10; i++) {
     qty.push(i)
   }
-  
-  async function removeItem(itemId){
+
+  async function removeItem(itemId) {
     setAlert('Removing Item')
 
     try {
@@ -42,6 +43,48 @@ export default function Cart(props) {
       router.reload()
     } catch (error) {
       setAlert(error.message)
+    }
+  }
+
+  async function payAndCollect() {
+
+    const id = uuidv4()
+
+    function addId(arr) {
+      for (let item of arr) {
+        item.uniqueId = id;
+      }
+      return arr;
+    }
+
+    const modifiedOrder = addId(data);
+
+    const order = []
+    order.push(...modifiedOrder)
+
+    order.push({
+      uniqueId: id,
+      email: router.query.me,
+      status: 'Order is sent',
+      get: true,
+    })
+
+    try {
+      const response = await PostMethod('/api/cart/place-order', order)
+
+      if (response.message === 'success') {
+        setAlert('Thank you for your order. check order status to track order')
+
+        try {
+          await deleteMethod(`/api/cart/place-order?customerEmail=${router?.query?.me}`)
+        } catch (error) {
+          setAlert(error.message)
+        }
+
+        router.push('/')
+      }
+    } catch (error) {
+      setAlert('Something went wrong!')
     }
   }
 
@@ -115,7 +158,7 @@ export default function Cart(props) {
                   </div>
 
                   <button className={style.bin}>
-                    <RiDeleteBin2Line 
+                    <RiDeleteBin2Line
                       size={20}
                       onClick={() => removeItem(item.id)}
                       cursor={'pointer'}
@@ -135,6 +178,12 @@ export default function Cart(props) {
           onClick={() => setCheckout(true)}
         >
           Proceed to Checkout
+        </button>
+
+        <button
+          onClick={payAndCollect}
+        >
+          Pay and Collect
         </button>
       </div>
 

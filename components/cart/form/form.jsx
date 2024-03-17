@@ -29,7 +29,7 @@ export default function Form(props) {
         if (message === 'success') {
           placeOrder()
           deleteItems()
-          router.reload()
+          router.push('/')
         }
       }
     });
