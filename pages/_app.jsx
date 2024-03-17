@@ -12,6 +12,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
       <ContextProvider>
         <Wrapper>
           <Component {...pageProps} />
+          <script src="https://js.paystack.co/v1/inline.js"></script>
         </Wrapper>
       </ContextProvider>
     </SessionProvider>
