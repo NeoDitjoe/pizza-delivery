@@ -2,19 +2,27 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import style from './navbar.module.css'
 import { useRouter } from "next/router";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import Image from "next/image";
 import logo from '../../../public/logo/nobglogo.png'
 
 export default function Navbar() {
 
+  
   const { data: session } = useSession()
   const router = useRouter()
-
+  const [ count, setCount ] = useState(null)
+  
   const isHomePage = router.asPath === '/'
   const isAdmin = session?.user?.email?.admin
   const user = session?.user?.email.email
+
+  useEffect(() => {
+    fetch(`/api/cart/cart-count?customer=${session?.user?.email.email}`)
+      .then(res => res.json())
+      .then(data => setCount(data?.count))
+  })
 
   if (isAdmin) {
     return (
@@ -70,7 +78,7 @@ export default function Navbar() {
                 <div>
                   <Link href={`/cart?me=${user}`}>
                     <div className={style.cart}>
-                      <FaShoppingCart /> 9
+                      <FaShoppingCart /> {count}
                     </div>
                   </Link>
                 </div>
