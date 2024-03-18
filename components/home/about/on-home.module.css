@@ -1,0 +1,43 @@
+.first {
+  text-align: center;
+}
+
+.first div{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  
+}
+
+.orderNow {
+  text-align: center;
+  
+}
+
+.orderNow a {
+  text-decoration: none;
+  color: burlywood;
+}
+
+.orderNow img {
+  width: 70%;
+  height: 90vh;
+}
+
+.hotPizza {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow-y: auto;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.hotPizza a{
+  text-decoration: none;
+  color: black;
+}
