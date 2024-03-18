@@ -25,7 +25,7 @@ export default function Wrapper(props) {
       </div>
       {alert && <p className={style.alert}>{alert}</p>}
       <div className={style.footer}>
-        footer
+      copyright © 2024 - All right reserved by Pizza4Real
       </div>
     </div>
   )
