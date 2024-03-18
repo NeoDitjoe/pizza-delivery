@@ -9,5 +9,10 @@ export default async function getCartData(user) {
     {$match: { user: user}}
   ]).toArray()
 
-  return results
+  const count = results.length
+
+  return {
+    results,
+    count
+  }
 }

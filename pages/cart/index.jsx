@@ -16,11 +16,11 @@ export async function getServerSideProps({ query }){
 
   const { me } = query
 
-  const data = await getCartData(me)
+  const { results } = await getCartData(me)
 
   return {
     props: {
-      data,
+      data: results
     }
   }
 }

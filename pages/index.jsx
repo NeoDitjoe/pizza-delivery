@@ -1,3 +1,4 @@
+import AboutOnHome from "@/components/home/about/on-home";
 import Home from "@/components/home/home";
 import Head from "next/head";
 
@@ -24,6 +25,7 @@ export default function HomePage() {
         />
       </Head>
       <Home />
+      <AboutOnHome/>
     </main>
   );
 }

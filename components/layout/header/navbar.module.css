@@ -4,9 +4,6 @@
   height: 82vh;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 10px;
-  padding-top: 40px;
-
   animation-name: smoothDown;
   animation-duration: 2s;
   animation-iteration-count: 1;
@@ -21,14 +18,6 @@
   }
 }
 
-.navbar a,
-.signOut{
-  text-decoration: none;
-  color: white;
-  font-weight: 600;
-  font-size: larger;
-}
-
 .signOut{
   background: none;
   border: none;
@@ -38,55 +27,58 @@
 .backgroundB {
   background: url('https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
   width: 100%;
-  height: 10vh;
+  height: 30vh;
   background-repeat: no-repeat;
   background-size: cover;
   background-position-y: -150px;
-  padding-top: 40px;
+}
+
+.img{
+  margin-top: -25px;
 }
 
 .navbar{
   display: flex;
   flex-direction: row;
-  gap: 10px;
-  padding-right: 30px;
-  justify-content: end;
-}
-
-
-.pizzaBase {
-  display: flex;
-  flex-direction: row;
   justify-content: space-between;
-}
-
-.img {
-  width: 80px;
-  height: 80px;
-}
-
-
-.pizzaBase h5 {
-  width: 120px;
-}
-
-.pizzaBase a{
-  color: black;
-  text-decoration: none;
-}
-
-.main h2 {
+  flex-wrap: wrap;
   text-align: center;
 }
 
-.main {
-  padding-left: 240px;
-  padding-right: 240px;
+.menu,
+.signIn {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
+  background-color: rgba(222, 184, 135, 0.795);
+  padding: 20px;
+  border-radius: 2px;
 }
 
-@media only screen and (max-width: 422px){
+.menu a,
+.menuDash a,
+.signIn {
+  text-decoration: none;
+  color: white;
+  font-size: larger;
+  cursor: pointer;
+}
+
+.menuDash{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
+  padding: 20px;
+  border-radius: 2px;
+}
+
+@media only screen and (max-width: 448px){
   .backgroundB{
-    height: 37vh;
+    height: 80vh;
     margin-bottom: -150px;
   }
 }
