@@ -1,13 +1,12 @@
 .button {
-  width: 90px;
   padding: 12px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
+  background: none;
+  font-size: large;
 
-  margin-top: 24px;
-  background-color: burlywood;
-
+  text-decoration: underline;
 }
 
 .main {
