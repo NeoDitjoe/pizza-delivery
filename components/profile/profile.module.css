@@ -1,13 +1,12 @@
 .button {
-  width: 90px;
   padding: 12px;
   border-radius: 5px;
   border: none;
   cursor: pointer;
+  background: none;
+  font-size: large;
 
-  margin-top: 24px;
-  background-color: burlywood;
-
+  text-decoration: underline;
 }
 
 .main {
@@ -18,6 +17,15 @@
   padding-left: 200px;
   padding-right: 200px;
   padding-top: 10px
+}
+
+.form {
+  text-align: center;
+}
+
+.form input {
+  border: none;
+  height: 6vh;
 }
 
 @media only screen and (max-width: 1254px) {
