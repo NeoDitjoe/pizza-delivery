@@ -6,6 +6,7 @@ import { CircularProgress } from '@mui/material'
 import TrackOrders from './track-orders.jsx/order'
 import deleteMethod from '@/util/deleteMethod'
 import stateContext from '@/util/context'
+import PostMethod from '@/util/postMethod'
 
 export default function UserProfile(props) {
 
@@ -13,6 +14,9 @@ export default function UserProfile(props) {
   const { setAlert } = stateContext()
 
   const [deleteLoader, setDeleteLoader] = useState(false)
+  const [newPassword, setNewPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [changePasswordLoader, setChangePasswordLoad ] = useState(false)
 
   const router = useRouter()
   const { data: session, status } = useSession()
@@ -29,6 +33,24 @@ export default function UserProfile(props) {
 
   if (!session) {
     return ''
+  }
+
+  async function changePasswordHandler(e) {
+    e.preventDefault()
+
+    const formData = new FormData(e.target)
+    const password = formData.get('password')
+
+    try {
+      const response = await PostMethod('/api/profile/change-password', {email: router?.query.me, password})
+
+      if(response.message === 'success'){
+        setAlert('password is changed')
+        setNewPassword(false)
+      }
+    } catch (error) {
+      setAlert(error.message)
+    }
   }
 
   async function deleteAccountHandler() {
@@ -56,8 +78,25 @@ export default function UserProfile(props) {
 
       <button
         className={style.button}
-        onClick={() => null}
+        onClick={() => setNewPassword(true)}
       >Change Password</button>
+
+      {
+        newPassword
+          ? <div className={style.form}>
+            <form onSubmit={changePasswordHandler}>
+              <input type={showPassword ? "text" : 'password'} name='password' />
+              <span
+                onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? 'hide' : 'show'}
+              </span>
+              {changePasswordLoader ? <CircularProgress size={20}/> :<input type="submit" />}
+            </form>
+
+            <button onClick={() => setNewPassword(false)}>Cancel</button>
+          </div>
+          : ''
+      }
 
       <button
         className={style.button}
