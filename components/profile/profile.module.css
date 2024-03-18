@@ -23,6 +23,11 @@
   text-align: center;
 }
 
+.form input {
+  border: none;
+  height: 6vh;
+}
+
 @media only screen and (max-width: 1254px) {
   .main {
     padding-left: 100px;

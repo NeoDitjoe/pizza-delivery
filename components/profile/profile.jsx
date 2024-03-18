@@ -7,6 +7,7 @@ import TrackOrders from './track-orders.jsx/order'
 import deleteMethod from '@/util/deleteMethod'
 import stateContext from '@/util/context'
 import PostMethod from '@/util/postMethod'
+import { RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
 
 export default function UserProfile(props) {
 
@@ -88,7 +89,7 @@ export default function UserProfile(props) {
               <input type={showPassword ? "text" : 'password'} name='password' />
               <span
                 onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? 'hide' : 'show'}
+                {showPassword ? <RiEyeCloseLine/> : <RiEyeLine/>}
               </span>
               {changePasswordLoader ? <CircularProgress size={20}/> :<input type="submit" />}
             </form>
