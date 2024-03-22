@@ -7,7 +7,7 @@ export default async function setNewPassword(email, code, password, res){
 
   const userDetails = await db.collection('users').findOne({email: email})
 
-  if(!userDetails.email){
+  if(!userDetails){
     res.status(500).json({ message: 'User not found, create account'})
     return
   }
@@ -18,7 +18,7 @@ export default async function setNewPassword(email, code, password, res){
   }
 
   if(password.split('').length < 7){
-    res.status(500).json({ message: 'Password should contain 7 character or more!'})
+    res.status(500).json({ message: 'Password should contain 7 or more characters!'})
     return
   }
 

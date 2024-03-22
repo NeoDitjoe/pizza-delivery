@@ -9,17 +9,17 @@ export default async function signUp(username, email, password, image,verificati
   const checkUser = await db.collection('users').findOne({ email: email})
 
   if(password.split('').length < 7){
-    res.status(417).json({ message: 'Password should contain more then 7 or more characters'})
+    res.status(417).json({ message: 'Password should contain 7 or more characters!'})
     return
   }
 
   if(checkUserByEmail){
-    res.status(417).json({ message: 'Email already in use, but is not verified'})
+    res.status(417).json({ message: 'Email already in use, but is not verified!'})
     return
   }
 
   if(checkUser){
-    res.status(417).json({ message: 'email already in use, Please Sign in'})
+    res.status(417).json({ message: 'email already in use, Please Sign in!'})
   }else{
 
     const hashPassword = await hashInput(password)

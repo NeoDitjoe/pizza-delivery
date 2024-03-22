@@ -9,6 +9,7 @@ import { CircularProgress } from '@mui/material';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import stateContext from '@/util/context';
+import deleteMethod from '@/util/deleteMethod';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '',
@@ -39,6 +40,7 @@ export default function VerifyUserEmail() {
       const response = await PostMethod('/api/auth/verifyUser', verify)
 
       if(response.message === 'success'){
+        await deleteMethod(`/api/auth/delete-verified-user?email=${verify.email}`)
         setAlert(response.message)
         setSubmitLoader(false)
         router.push('/auth')

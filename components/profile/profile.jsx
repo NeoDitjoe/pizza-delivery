@@ -62,8 +62,8 @@ export default function UserProfile(props) {
       await deleteMethod(`/api/profile/delete-account?email=${router?.query.me}`)
 
       setDeleteLoader(false)
-      router.push('/')
       signOut()
+      router.push('/')
     } catch (error) {
       setAlert(error.message)
       setDeleteLoader(false)
