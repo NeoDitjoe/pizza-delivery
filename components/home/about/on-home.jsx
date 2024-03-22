@@ -12,7 +12,7 @@ const first = [motobike, rockstarpizza, pizza]
 export default function AboutOnHome() {
 
   return (
-    <div>
+    <div className={style.container}>
       <div className={style.first}>
         <h2>Pizza that Rocks!</h2>
         <p>Order & customize your perfect pizza for delivery or pickup.</p>
@@ -31,7 +31,7 @@ export default function AboutOnHome() {
         </div>
       </div>
 
-      <div className={style.orderNow}>
+      {/* <div className={style.orderNow}>
         <Link href={'/Classic%20Neapolitan%20Pizza%20Dough'}>
           <h1>Order now</h1>
           <Image 
@@ -42,7 +42,7 @@ export default function AboutOnHome() {
             
           />
         </Link>
-      </div>
+      </div> */}
 
       <div className={style.hotPizza}>
         <div>
@@ -55,8 +55,8 @@ export default function AboutOnHome() {
           <Image 
             src={hotPizza}
             alt='hot pizza'
-            width={500}
-            height={700}
+            width={350}
+            height={550}
           />
         </div>
       </div>
