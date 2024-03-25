@@ -5,15 +5,15 @@ import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import Image from "next/image";
-import logo from '../../../public/logo/nobglogo.png'
+import logo from '../../../public/logo/logo.png'
 
 export default function Navbar() {
 
-  
+
   const { data: session } = useSession()
   const router = useRouter()
-  const [ count, setCount ] = useState(null)
-  
+  const [count, setCount] = useState(null)
+
   const isHomePage = router.asPath === '/'
   const isAdmin = session?.user?.email?.admin
   const user = session?.user?.email.email
@@ -44,7 +44,7 @@ export default function Navbar() {
             <Link href={'/dashboard'}>Dashboard</Link>
             <Link href={'/dashboard/orders'}>Orders</Link>
             <Link onClick={() => signOut()} href={'/'}>SignOut</Link>
-           
+
           </div>
         </div>
 
@@ -66,25 +66,28 @@ export default function Navbar() {
               className={style.img}
             />
           </div>
+          
           <div>
             {!session
               ? <Link className={style.signIn} href='/auth'>Sign In</Link>
-              : <div className={style.menu}>
+              : <div>
+                <div className={style.menu}>
 
-                <div>
-                  <Link href={'/'}>Home </Link>
-                </div>
+                  <div>
+                    <Link href={'/'}>Home </Link>
+                  </div>
 
-                <div>
-                  <Link href={`/cart?me=${user}`}>
-                    <div className={style.cart}>
-                      <FaShoppingCart /> {count}
-                    </div>
-                  </Link>
-                </div>
+                  <div>
+                    <Link href={`/cart?me=${user}`}>
+                      <div className={style.cart}>
+                        <FaShoppingCart /> {count}
+                      </div>
+                    </Link>
+                  </div>
 
-                <div>
-                  <Link href={`/profile?me=${user}`}> Profile</Link>
+                  <div>
+                    <Link href={`/profile?me=${user}`}> Profile</Link>
+                  </div>
                 </div>
               </div>
             }
