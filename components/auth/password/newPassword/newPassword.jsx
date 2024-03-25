@@ -49,7 +49,7 @@ export default function CreateNewPassword() {
 
       }
     } catch (error) {
-      setAlert(error.message)
+      setAlert(error.message || `Password be 7 or more characters.\n Enter Email used to apply \n Enter code sent to your email `)
       setLoadingButton(false)
     }
   }
