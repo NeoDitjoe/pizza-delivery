@@ -26,7 +26,7 @@ export default async function updateAdmin(base, cheese, sauce, veggies) {
   })
 
   if (veggiesRunningOut) {
-    await runningOutOfProduct(20, `on each of these veggies ${veggiesRunningOut.join(', ')}, ''`)
+    await runningOutOfProduct(20, `on each of these veggies ${veggiesRunningOut.join(', ')}`, '')
   }
 
   if (notifyOnBase.quantity < 11) {

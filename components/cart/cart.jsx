@@ -11,10 +11,12 @@ import stateContext from '@/util/context';
 import deleteMethod from '@/util/deleteMethod';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
+import { useSession } from 'next-auth/react';
 
 export default function Cart(props) {
   const { data } = props
   const router = useRouter()
+  const { data:session, status } = useSession()
 
   const qtyRef = useRef()
   const { setAlert } = stateContext()
@@ -81,7 +83,7 @@ export default function Cart(props) {
           setAlert(error.message)
         }
 
-        router.push('/')
+        router.push(`/profile?me=${session?.user.email.email}`)
       }
     } catch (error) {
       setAlert('Something went wrong!')
