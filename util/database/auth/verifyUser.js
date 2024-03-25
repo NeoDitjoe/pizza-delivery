@@ -7,24 +7,20 @@ export default async function verify(email, verificationCode, res) {
   const checkUserEmail = await db.collection('verification').findOne({ email: email})
 
   if(!checkUserEmail){
-    res.status(500).json({ message: 'user not found. please sign up'})
+    res.status(417).json({ message: 'user not found. please sign up'})
     return
   }
 
   if(!checkUserEmail.verificationCode === verificationCode) {
-    res.status(500).json({ message: 'Invalid Code'})
+    res.status(417).json({ message: 'Invalid Code'})
     return
   }
 
   if(checkUserEmail.verificationCode === verificationCode){
     await db.collection('users').insertOne(checkUserEmail)
   }else{
-    res.status(500).json({ message: 'Invalid Code'})
+    res.status(417).json({ message: 'Invalid Code'})
     return 
   }
-
-  console.log(checkUserEmail.verificationCode)
-  console.log(verificationCode)
-  console.log(checkUserEmail.verificationCode === verificationCode)
 
 }
