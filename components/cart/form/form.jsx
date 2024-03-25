@@ -5,8 +5,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router';
 import stateContext from '@/util/context';
 import deleteMethod from '@/util/deleteMethod';
+import { useSession } from 'next-auth/react';
 
 export default function Form(props) {
+
+  const {data: session, status } = useSession()
 
   const { totaPrice, data } = props
   const router = useRouter()
@@ -29,7 +32,7 @@ export default function Form(props) {
         if (message === 'success') {
           placeOrder()
           deleteItems()
-          router.push('/')
+          router.push(`/profile?me=${session?.user.email.email}`)
         }
       }
     });
