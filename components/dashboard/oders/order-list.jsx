@@ -3,6 +3,7 @@ import PostMethod from '@/util/postMethod'
 import { useState } from 'react'
 import style from './order.module.css'
 import { useRouter } from 'next/router'
+import deleteMethod from '@/util/deleteMethod'
 
 export default function OrderList(props) {
 
@@ -20,6 +21,11 @@ export default function OrderList(props) {
       if (response.message === 'success') {
         setAlert('Customer status is updated!')
         setDisableButton(false)
+
+        if(status === 'Order is On The Way'){
+          deleteMethod(`/api/dashboard/remove-completed-order?uniqueId=${uniqueId}`)
+        }
+        router.reload()
       }
 
     } catch (error) {
@@ -72,7 +78,6 @@ export default function OrderList(props) {
                         className={style.recieved}
                         onClick={() => {
                           updateStatusHandler(order.email, order.uniqueId, 'Order has been recieved')
-                          router.reload()
                         }}
                       >Recieved
                       </button>
@@ -85,20 +90,15 @@ export default function OrderList(props) {
                         }
                         onClick={() =>  { 
                           updateStatusHandler(order.email, order.uniqueId, 'Order is in the Kitchen')
-                          router.reload()
                         }}
                         className={style.inKitchen}
                       >In Kitchen
                       </button>
 
                       <button
-                        disabled={
-                          disableButton
-                          || order.status === 'Order is On The Way'
-                        }
                         onClick={() => {
-                          updateStatusHandler(order.email, order.uniqueId, 'Order is On The Way')
-                          router.reload()
+                          const u = updateStatusHandler(order.email, order.uniqueId, 'Order is On The Way')
+                          console.log(u)
                         }}
                         className={style.onTheWay}
                       >On The Way
