@@ -46,7 +46,7 @@ export default function VerifyUserEmail() {
         router.push('/auth')
       }
     } catch (error) {
-      setAlert(error.message || 'Invalid email or code')
+      setAlert('Invalid email or code')
       setSubmitLoader(false)
     }
   }
