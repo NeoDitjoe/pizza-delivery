@@ -10,7 +10,7 @@ export default async function handler(req, res){
       await setNewPassword(email, code, password, res)
       res.status(200).json({ message: 'success' })
     } catch (error) {
-      res.status(500).json({ message: 'Something went wrong'})
+      res.status(417).json({ message: 'Something went wrong'})
     }
   }
 }
